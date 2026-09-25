@@ -68,7 +68,7 @@ export function runRehearsal(scenario: RehearsalScenario, nowMs = Date.now()) {
 export function assessLiveEvidence(state: MarketState, mode: 'live' | 'sample') {
   const scan = scanConvergence(state, 50);
   return { source: mode === 'live' ? 'pyth-pro' : 'sample', state, scan,
-    dataReady: mode === 'live' && state.markets.length === 3 && state.markets.every(row => row.price && row.issues.length === 0),
+    dataReady: mode === 'live' && state.markets.length === state.profile.symbols.length && state.markets.every(row => row.price && row.issues.length === 0),
     executionAuthorized: false,
     blockers: ['FINALIZED_STRATEGY_MANDATE_REQUIRED', 'FUNDED_ISOLATED_VAULT_REQUIRED', 'LIVE_VENUE_QUOTE_REQUIRED', 'TRANSACTION_SIMULATION_REQUIRED', 'RESTRICTED_SIGNER_REQUIRED', 'SETTLEMENT_AND_RETURN_PATH_REQUIRED'],
   };

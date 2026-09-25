@@ -1,4 +1,9 @@
 const labels = {
+  "Crypto.BTC/USD": { name: "Bitcoin", ticker: "BTC", kind: "Reference asset" },
+  "Crypto.WBTC/USD": { name: "Wrapped Bitcoin", ticker: "WBTC", kind: "Wrapped asset" },
+  "Equity.US.TSLA/USD": { name: "Tesla", ticker: "TSLA", kind: "Equity · observation only" },
+  "Equity.US.VOO/USD": { name: "Vanguard S&P 500 ETF", ticker: "VOO", kind: "ETF · observation only" },
+  "Equity.US.QQQ/USD": { name: "Invesco QQQ ETF", ticker: "QQQ", kind: "ETF · observation only" },
   "Equity.US.AAPL/USD": { name: "Apple equity", ticker: "AAPL", kind: "Underlying stock" },
   "Crypto.AAPLX/USD": { name: "Apple xStock", ticker: "AAPLX", kind: "Tokenized market" },
   "Crypto.AAPLON/USD": { name: "Apple Ondo", ticker: "AAPLON", kind: "Tokenized market" },
@@ -56,18 +61,24 @@ function renderBasis(readings) {
   }
 }
 
-function renderSignals(signals) {
+function renderSignals(scan) {
   const container = $("signals");
   container.replaceChildren();
+  const { signals, marketState } = scan;
+  const pairAvailable = marketState.profile.convergencePairs.some(([base, comparison]) => [base, comparison].every(symbol => marketState.markets.some(row => row.symbol === symbol && row.price)));
+  if (!pairAvailable) {
+    container.append(el("p", "empty-state", "The reference pair is unavailable. Both feeds must respond before a discount can be measured."));
+    return;
+  }
   if (!signals.length) {
-    container.append(el("p", "empty-state", "No token market is at least 50 bps below the equity reference in this reading."));
+    container.append(el("p", "empty-state", "No monitored asset is at least 50 bps below its paired reference in this reading."));
     return;
   }
   for (const signal of signals) {
     const row = el("div", "signal-row");
     const head = el("div", "signal-head");
     head.append(el("strong", "signal-name", labels[signal.buySymbol]?.name || signal.buySymbol));
-    head.append(el("span", "signal-discount", `${signal.discountBps.toFixed(1)} bps below AAPL`));
+    head.append(el("span", "signal-discount", `${signal.discountBps.toFixed(1)} bps below ${labels[signal.referenceSymbol]?.ticker || signal.referenceSymbol}`));
     row.append(head, el("p", "signal-warning", "Price dislocation · Trade unavailable"));
     container.append(row);
   }
@@ -82,17 +93,21 @@ async function refresh() {
     if (!response.ok) throw new Error(`Market service returned ${response.status}`);
     const { mode, state, scan } = await response.json();
     const sample = mode === "sample";
-    $("data-mode").textContent = sample ? "Illustrative sample data" : "Pyth Pro data";
+    $("hero-title").textContent = state.profile.title;
+    $("profile-description").textContent = state.profile.description;
+    $("profile-note").textContent = state.profile.note;
+    $("market-title").textContent = state.profile.id === "free-trial" ? "The trial watchlist" : "The Apple markets";
+    $("data-mode").textContent = sample ? "Illustrative sample data" : "Pyth Pro · " + (state.profile.id === "free-trial" ? "trial feeds" : "Apple feeds");
     $("source-note").textContent = sample
       ? "No Pyth Pro key is configured. Prices below are examples for the hackathon demo, not current market prices."
       : "Prices were requested from Pyth Pro. Check each feed's update time and quality before drawing conclusions.";
-    $("header-state").textContent = sample ? "Sample mode" : "Live feed read";
+    $("header-state").textContent = sample ? "Sample mode" : state.markets.some(row => row.price) ? "Pyth feed read" : "Feeds unavailable";
     const good = state.markets.filter(market => market.price && market.issues.length === 0).length;
     $("market-checks").textContent = sample ? "No live checks in sample mode" : `${good} of ${state.markets.length} feeds passed`;
     $("updated-at").textContent = `${sample ? "Sample rendered" : "Read"} at ${time(state.observedAtMs)}`;
     renderMarkets(state.markets, sample);
     renderBasis(state.basis);
-    renderSignals(scan.signals);
+    renderSignals(scan);
   } catch (error) {
     $("header-state").textContent = "Market data unavailable";
     $("data-mode").textContent = "Unable to load feeds";

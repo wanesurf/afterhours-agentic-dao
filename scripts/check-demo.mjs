@@ -15,10 +15,12 @@ await check('Finalized DAO governance', async () => {
 });
 await check('Market feed availability', async () => {
   const data = await (await get('/api/markets')).json();
-  expect(data.state.markets.length === 3, 'Missing feed rows');
+  expect(data.state.profile?.symbols.length > 0 && data.state.markets.length === data.state.profile.symbols.length, 'Missing configured feed rows');
+  expect(data.state.markets.every((row, index) => row.symbol === data.state.profile.symbols[index]), 'Unexpected feed set');
+  if (data.state.profile.id === 'free-trial') expect(data.state.basis.every(pair => pair.baseSymbol === 'Crypto.BTC/USD' && pair.comparisonSymbol === 'Crypto.WBTC/USD'), 'Unrelated assets compared');
   const issues = data.state.markets.map(row => ({ symbol: row.symbol, available: Boolean(row.price), issues: row.issues }));
   if (strictLive) expect(data.mode === 'live' && issues.every(row => row.available && row.issues.length === 0), JSON.stringify(issues));
-  return { mode: data.mode, ready: data.mode === 'live' && issues.every(row => row.available && row.issues.length === 0), feeds: issues };
+  return { profile: data.state.profile.id, mode: data.mode, ready: data.mode === 'live' && issues.every(row => row.available && row.issues.length === 0), feeds: issues };
 });
 for (const scenario of ['within-limits', 'over-budget', 'stale-price', 'paused', 'expired', 'no-discount']) await check(`Policy case: ${scenario}`, async () => {
   const record = await (await get(`/api/demo/rehearsal?scenario=${scenario}`)).json();

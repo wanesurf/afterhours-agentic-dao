@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#e5e4dc">
-  <title>Afterhours — Apple market monitor</title>
-  <meta name="description" content="Reference prices for the Afterhours equity mandate. A read-only market monitor for a holder-governed agent and an isolated, capped vault.">
+  <title>Afterhours — Market monitor</title>
+  <meta name="description" content="Pyth reference prices and comparable market spreads for the Afterhours read-only demo.">
   <link rel="stylesheet" href="/markets.css">
   <script defer src="/markets.js"></script>
   <link rel="stylesheet" href="/navigation.css">
   <link rel="canonical" href="https://afterhouragent.xyz/markets">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Afterhours">
-  <meta property="og:title" content="Afterhours — Apple market monitor">
-  <meta property="og:description" content="Reference prices for the Afterhours equity mandate. A read-only market monitor for a holder-governed agent and an isolated, capped vault.">
+  <meta property="og:title" content="Afterhours — Market monitor">
+  <meta property="og:description" content="Pyth reference prices and comparable market spreads for the Afterhours read-only demo.">
   <meta property="og:url" content="https://afterhouragent.xyz/markets">
   <meta property="og:image" content="https://afterhouragent.xyz/assets/afterhours-og-925f20bcb1e0.png">
   <meta property="og:image:secure_url" content="https://afterhouragent.xyz/assets/afterhours-og-925f20bcb1e0.png">
@@ -22,8 +22,8 @@
   <meta property="og:image:height" content="768">
   <meta property="og:image:alt" content="Afterhour stands before a classical assembly beneath the words: The Agentic DAO for the tokenized economy.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Afterhours — Apple market monitor">
-  <meta name="twitter:description" content="Reference prices for the Afterhours equity mandate. A read-only market monitor for a holder-governed agent and an isolated, capped vault.">
+  <meta name="twitter:title" content="Afterhours — Market monitor">
+  <meta name="twitter:description" content="Pyth reference prices and comparable market spreads for the Afterhours read-only demo.">
   <meta name="twitter:image" content="https://afterhouragent.xyz/assets/afterhours-og-925f20bcb1e0.png">
   <meta name="twitter:image:alt" content="Afterhour stands before a classical assembly beneath the words: The Agentic DAO for the tokenized economy.">
 </head>
@@ -38,16 +38,16 @@
     <main>
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="section-index">Strategy 01 <span aria-hidden="true">/</span> Tokenized equities</p>
-          <h1 id="hero-title">Apple trades<br>three ways.</h1>
-          <p class="hero-description">One underlying stock, two tokenized markets. This monitor shows the reference prices behind an equity mandate. Execution belongs inside a holder-approved budget and an isolated vault.</p>
+          <p class="section-index">Market evidence <span aria-hidden="true">/</span> Pyth</p>
+          <h1 id="hero-title">Read the<br>market.</h1>
+          <p class="hero-description" id="profile-description">Independent reference prices, comparable market spreads, and feed quality checks.</p>
         </div>
         <div class="hero-aside">
           <div class="source-status">
             <span class="status-dot" aria-hidden="true"></span>
             <span id="data-mode">Loading data source</span>
           </div>
-          <p id="source-note">Reading the three Pyth feeds.</p>
+          <p id="source-note">Reading the configured Pyth feeds.</p>
           <div class="readout">
             <span>Trading state</span>
             <strong>Observation only</strong>
@@ -63,11 +63,11 @@
         <div class="section-heading">
           <div>
             <p class="section-index">Reference prices</p>
-            <h2 id="market-title">The three markets</h2>
+            <h2 id="market-title">The market watchlist</h2>
           </div>
           <button class="refresh-button" id="refresh-button" type="button">Refresh prices</button>
         </div>
-        <p class="section-intro">Pyth prices are evidence of a gap. They are not executable buy or sell quotes.</p>
+        <p class="section-intro" id="profile-note">Pyth prices are reference observations. Executable venue quotes are required for trading.</p>
         <div class="market-grid" id="markets" aria-live="polite"></div>
       </section>
 

@@ -4,6 +4,7 @@ import { pathToFileURL } from "node:url";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { z } from "zod";
+import { selectMarketProfile } from "./markets.js";
 import { PythProMarketClient } from "./pyth-pro.js";
 import { readMarketState, scanConvergence, type MarketState } from "./scanner.js";
 
@@ -37,14 +38,14 @@ export function createArbitrageMcpHttpServer(provider: MarketStateProvider, bear
     }
     const mcp = new McpServer({ name: "afterhours-arbitrage", version: "0.1.0" });
     mcp.registerTool("get_market_state", {
-      description: "Read AAPL, AAPLX, and AAPLON Pyth prices, quality checks, and the three basis readings. Read only.",
+      description: "Read the configured Pyth market profile, prices, quality checks, and comparable reference spreads. Read only.",
       annotations: { readOnlyHint: true },
     }, async () => {
       const result = await provider.read();
       return { content: [{ type: "text", text: JSON.stringify(result) }] };
     });
     mcp.registerTool("scan_opportunities", {
-      description: "Find one-sided tokenized Apple discounts against the Pyth equity reference. Results are non-executable dislocations until venue quotes and governance checks exist.",
+      description: "Find discounts within the configured reference pairs (BTC/WBTC trial or Apple equity/tokenized markets). Results are non-executable dislocations until venue quotes and governance checks exist.",
       inputSchema: { minimumDiscountBps: z.number().finite().min(0).default(0) },
       annotations: { readOnlyHint: true },
     }, async ({ minimumDiscountBps }) => {
@@ -72,8 +73,9 @@ export function startArbitrageMcpFromEnvironment(): Server {
   if (host !== "127.0.0.1" && host !== "localhost" && !bearerToken) {
     throw new Error("ARBITRAGE_MCP_TOKEN is required when the MCP binds outside localhost");
   }
+  const profile = selectMarketProfile(process.env.PYTH_MARKET_PROFILE);
   const client = new PythProMarketClient(process.env.PYTH_PRO_ACCESS_TOKEN || "");
-  const server = createArbitrageMcpHttpServer({ read: () => readMarketState(client) }, bearerToken);
+  const server = createArbitrageMcpHttpServer({ read: () => readMarketState(client, profile) }, bearerToken);
   server.listen(port, host, () => console.log(`Afterhours arbitrage MCP listening on ${host}:${port}`));
   return server;
 }

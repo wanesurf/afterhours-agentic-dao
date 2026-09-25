@@ -35,13 +35,16 @@ async function prices() {
   try {
     const data = await read('/api/markets'); const available = data.state.markets.filter(row => row.price).length;
     const entitlementMissing = data.state.markets.some(row => row.issues.includes('PYTH_FEED_NOT_ENTITLED'));
-    $('price-source').textContent = data.mode !== 'live' ? 'Sample data · Pyth key not configured' : entitlementMissing ? 'Pyth Pro · feed access required' : available === 3 ? 'Pyth Pro · live prices' : 'Pyth Pro · data incomplete';
+    $('price-source').textContent = data.mode !== 'live' ? 'Sample data · Pyth key not configured' : entitlementMissing ? 'Pyth Pro · feed access required' : available !== data.state.markets.length ? 'Pyth Pro · data incomplete' : data.state.markets.some(row => row.issues.length) ? 'Pyth Pro · quality checks need review' : 'Pyth Pro · live prices';
+    $('evidence-title').textContent = data.state.profile.title;
     const list = node('dl', undefined, 'facts');
     for (const row of data.state.markets) {
       const item = node('div'); item.append(node('dt', row.symbol), node('dd', row.price ? usd(row.price.priceUsd) : 'Unavailable'));
-      item.append(node('p', row.issues.length ? row.issues.map(issue => issue === 'PYTH_FEED_NOT_ENTITLED' ? 'This key does not have access to this feed.' : issue).join(', ') : 'Quality checks passed', 'small-note')); list.append(item);
+      item.append(node('p', row.issues.length ? row.issues.map(issue => issue === 'PYTH_FEED_NOT_ENTITLED' ? 'This key does not have access to this feed.' : issue).join(', ') : data.mode === 'live' ? `Updated ${new Date(row.price.feedUpdatedAtMs).toLocaleTimeString()} · quality checks passed` : 'Synthetic example', 'small-note')); list.append(item);
     }
-    target.replaceChildren(list, node('p', available < 3 ? 'Price comparison is unavailable until all three feeds respond.' : data.scan.signals.length ? `${data.scan.signals.length} price gap(s) above 50 bps. Venue quotes and approved capital are still required.` : 'No qualifying price gap is reported by this read. The system should wait.', 'small-note'));
+    const pairAvailable = data.state.profile.basisPairs.some(([base, comparison]) => [base, comparison].every(symbol => data.state.markets.some(row => row.symbol === symbol && row.price)));
+    const spread = data.state.basis.map(item => `${item.comparisonSymbol} versus ${item.baseSymbol}: ${item.basisBps >= 0 ? '+' : ''}${item.basisBps.toFixed(2)} bps`).join(' · ');
+    target.replaceChildren(list, node('p', data.state.profile.note, 'small-note'), node('p', pairAvailable ? spread : 'Both feeds in a reference pair must respond before its spread can be measured.', 'small-note'), node('p', !pairAvailable ? 'No comparison available.' : data.scan.signals.length ? `${data.scan.signals.length} price gap(s) above 50 bps. Venue quotes and approved capital are still required.` : 'No qualifying price gap is reported by this read. The system should wait.', 'small-note'));
   } catch(error) { $('price-source').textContent = 'Data unavailable'; target.replaceChildren(node('p', error.message, 'disclosure')); }
 }
 async function refresh() { $('refresh-evidence').disabled = true; try { await Promise.allSettled([governance(), prices()]); } finally { $('refresh-evidence').disabled = false; } }

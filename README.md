@@ -7,7 +7,7 @@ find market opportunities, enforce risk limits, execute approved actions, and
 publish transaction receipts. Anyone can also converse
 with a read-only agent to understand strategies, decisions, and results.
 
-The first strategy compares three Pyth markets:
+The planned stock strategy compares three Pyth markets:
 
 - `Equity.US.AAPL/USD` — the regular Apple equity feed.
 - `Crypto.AAPLX/USD` — the xStocks Apple feed.
@@ -41,11 +41,18 @@ combines live finalized governance reads with six synthetic policy scenarios
 and downloadable decision records. See [the demo runbook](docs/demo-runbook.md)
 for the exact walkthrough and current evidence.
 
-The Pyth Pro adapter requests AAPL, AAPLX, and AAPLON, normalizes prices, and checks
-freshness, market session, confidence, and publisher count. The configured key
-currently returns `PYTH_FEED_NOT_ENTITLED` for all three feeds. No sample price is
-substituted for a failed live request. Without a key, the monitor explicitly uses
-sample mode.
+The live trial profile uses five feeds confirmed accessible on 2026-09-25:
+BTC (1), WBTC (103), TSLA (1435), VOO (1472), and QQQ (1363).
+Only BTC/WBTC is compared; equities and ETFs provide observation-only context.
+This reference spread does not establish executable arbitrage or a Solana venue.
+The adapter validates feed IDs, freshness, market sessions, confidence, and
+publisher counts. Failed live requests are never replaced with sample prices.
+Without a key, prices are explicitly synthetic.
+
+`PYTH_MARKET_PROFILE=free-trial` is the runtime default. Set it to `apple` after
+obtaining Apple equity, xStocks, and Ondo access; those three feeds currently
+return `PYTH_FEED_NOT_ENTITLED`. The six policy rehearsal cases still use clearly
+labeled synthetic Apple inputs, independently of the live trial watchlist.
 
 The new governance adapter decodes the deployed governance account's proposal
 thresholds, voting settings, native treasury balance, and actual proposal states.

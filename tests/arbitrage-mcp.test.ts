@@ -3,9 +3,9 @@ import assert from "node:assert/strict";
 import { once } from "node:events";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
-import { AAPL_FEED_IDS, AAPL_MARKETS, type AaplMarketSymbol, type ReferencePrice } from "../services/arbitrage-mcp/src/markets.js";
+import { AAPL_FEED_IDS, AAPL_MARKETS, FEED_IDS, TRIAL_MARKETS, TRIAL_PROFILE, selectMarketProfile, type MarketSymbol, type ReferencePrice } from "../services/arbitrage-mcp/src/markets.js";
 import { parsePythLatest, PythProMarketClient } from "../services/arbitrage-mcp/src/pyth-pro.js";
-import { analyzePrices, scanConvergence } from "../services/arbitrage-mcp/src/scanner.js";
+import { analyzePrices, scanConvergence, readMarketState } from "../services/arbitrage-mcp/src/scanner.js";
 import { createArbitrageMcpHttpServer } from "../services/arbitrage-mcp/src/server.js";
 
 const now = 1_790_000_000_000;
@@ -17,7 +17,7 @@ function pythPayload(price: string, feedUpdateTimestamp = now * 1_000, feedId = 
   }] } };
 }
 
-function price(symbol: AaplMarketSymbol, priceUsd: number, overrides: Partial<ReferencePrice> = {}): ReferencePrice {
+function price(symbol: MarketSymbol, priceUsd: number, overrides: Partial<ReferencePrice> = {}): ReferencePrice {
   return { symbol, feedId: 42, priceUsd, confidenceUsd: 0.0025,
     priceMantissa: String(priceUsd * 100_000), confidenceMantissa: "250", exponent: -5,
     observedAtMs: now, feedUpdatedAtMs: now, marketSession: "regular", publisherCount: 4, ...overrides };
@@ -102,5 +102,51 @@ test("MCP exposes only read-only market and scan tools behind a bearer token", a
   } finally {
     server.closeAllConnections();
     await new Promise<void>(resolve => server.close(() => resolve()));
+  }
+});
+
+
+test("trial scanner compares only BTC/WBTC and checks equity sessions independently", () => {
+  const state = analyzePrices({
+    [TRIAL_MARKETS.bitcoin]: price(TRIAL_MARKETS.bitcoin, 80_000),
+    [TRIAL_MARKETS.wrappedBitcoin]: price(TRIAL_MARKETS.wrappedBitcoin, 79_000),
+    [TRIAL_MARKETS.tesla]: price(TRIAL_MARKETS.tesla, 300, { marketSession: "closed" }),
+    [TRIAL_MARKETS.sp500]: price(TRIAL_MARKETS.sp500, 600),
+    [TRIAL_MARKETS.nasdaq]: price(TRIAL_MARKETS.nasdaq, 500),
+  }, now, undefined, {}, TRIAL_PROFILE);
+  assert.equal(state.markets.length, 5);
+  assert.equal(state.basis.length, 1);
+  assert.equal(state.basis[0]!.baseSymbol, TRIAL_MARKETS.bitcoin);
+  assert.equal(state.basis[0]!.comparisonSymbol, TRIAL_MARKETS.wrappedBitcoin);
+  const scan = scanConvergence(state, 50);
+  assert.equal(scan.signals.length, 1);
+  assert.equal(scan.signals[0]!.referenceSymbol, TRIAL_MARKETS.bitcoin);
+  assert.equal(scan.signals[0]!.discountBps, 125);
+  assert.equal(scan.signals[0]!.actionable, false);
+  assert.ok(scan.signals[0]!.issues.includes("SOLANA_VENUE_NOT_VERIFIED"));
+  assert.ok(state.markets.find(row => row.symbol === TRIAL_MARKETS.tesla)!.issues.includes("EQUITY_MARKET_NOT_REGULAR"));
+  assert.ok(!scan.signals[0]!.issues.includes("EQUITY_MARKET_NOT_REGULAR"));
+});
+
+test("trial reader requests only entitled profile symbols and never fills a failed feed", async () => {
+  const requested: MarketSymbol[] = [];
+  const state = await readMarketState({ fetchLatest: async symbol => {
+    requested.push(symbol);
+    if (symbol === TRIAL_MARKETS.wrappedBitcoin) throw new Error("PYTH_FEED_NOT_ENTITLED");
+    return price(symbol, 100);
+  } }, TRIAL_PROFILE);
+  assert.deepEqual(requested, TRIAL_PROFILE.symbols);
+  assert.equal(state.markets.find(row => row.symbol === TRIAL_MARKETS.wrappedBitcoin)!.price, null);
+  assert.equal(state.basis.length, 0);
+  assert.equal(scanConvergence(state, 0).signals.length, 0);
+  assert.equal(selectMarketProfile().id, "free-trial");
+  assert.equal(selectMarketProfile("apple").id, "apple");
+  assert.throws(() => selectMarketProfile("unknown"), /PYTH_MARKET_PROFILE/);
+});
+
+test("each trial feed must match its verified feed ID", () => {
+  for (const symbol of TRIAL_PROFILE.symbols) {
+    assert.equal(parsePythLatest(symbol, pythPayload("20000000", now * 1_000, FEED_IDS[symbol])).feedId, FEED_IDS[symbol]);
+    assert.throws(() => parsePythLatest(symbol, pythPayload("20000000", now * 1_000, 922)), /Unexpected Pyth feed ID/);
   }
 });

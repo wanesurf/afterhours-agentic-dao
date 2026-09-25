@@ -8,7 +8,8 @@ The migration app remains at https://migration.afterhouragent.xyz.
 Canonical-domain HTTPS and anonymous sessions passed live checks.
 Page, banner, health, and secure anonymous-session checks passed on 2026-09-25.
 The Hermes API is not yet reachable; live replies remain explicitly unavailable.
-Market data currently uses the labeled sample mode. The GitHub repository is private.
+The local market demo uses live Pyth trial data. Production activation awaits
+approval to store the Pyth key on Railway. The GitHub repository is private.
 
 ## Integrated demo (2026-09-25)
 
@@ -18,8 +19,10 @@ JSON decision records with reproducible content hashes and never grants executio
 authority. `pnpm demo:check` exercises the HTTP flow and reports blocked external
 integrations separately. See [demo runbook](demo-runbook.md).
 
-The Pyth key has been configured locally, but all three required feeds return
-HTTP 403 (not entitled). The live site still uses its existing sample configuration.
+The configured key successfully reads BTC, WBTC, TSLA, VOO, and QQQ. The default
+`free-trial` profile compares only BTC/WBTC and displays the three equities/ETFs as
+context. The `apple` profile remains available but needs additional entitlement.
+Every signal is non-executable; no WBTC Solana venue has been verified.
 The latest finalized read found only the completed council metadata proposal;
 there is no approved trading strategy. Full vault funding, execution, and returns
 remain unimplemented. The new demo is deployed at https://afterhouragent.xyz/demo; production governance
@@ -28,16 +31,15 @@ and rehearsal requests passed. GitHub source remains private.
 ## Implemented
 
 - Read-only Arbitrage MCP with `get_market_state` and `scan_opportunities`.
-- Pyth Pro REST parsing for AAPL, AAPLX, and AAPLON, with feed-ID, freshness,
-  session, confidence, and publisher checks. The three feed IDs are verified
-  against Pyth's public symbol catalog.
+- Pyth Pro REST parsing for the five trial feeds plus optional AAPL/AAPLX/AAPLON, with feed-ID, freshness,
+  session, confidence, and publisher checks. The trial feed IDs were verified from authenticated live responses.
 - AAPLX/AAPL, AAPLON/AAPL, and AAPLON/AAPLX basis calculations. Signals remain
   non-executable until executable venue quotes and a governed mandate exist.
 - Deterministic execution preflight for mandate dates, pause state, allowlists,
   trade size, vault exposure, slippage, net profit, and quote freshness.
 - Proposal review and portal submit checks compare raw Realms proposal weight
   with integer arithmetic, including balances above JavaScript's safe integer.
-- A read-only market monitor displays feed quality, the three basis readings,
+- A read-only market monitor displays feed quality, configured basis readings,
   and candidate discounts. It uses explicitly labeled sample prices when no
   Pyth Pro token is configured.
 - Roman-inspired landing page with the supplied assembly banner, local fonts,
@@ -76,7 +78,8 @@ and rehearsal requests passed. GitHub source remains private.
   tools on the API platform. No separate holder profile is required.
   The hosted dashboard is not the API endpoint. See `apps/web/README.md`.
 
-- A server-side Pyth Pro access token entitled to the three feeds.
+- The configured server-side Pyth token covers the trial feeds. Additional Apple
+  entitlements are needed only to enable the original stock strategy.
 - The Hummingbot API/Gateway version and endpoint, plus local credentials in a
   secret store. Its live OpenAPI schema is authoritative for quote fields.
 - A production Solana RPC URL, strategy-vault address, and a controlled test

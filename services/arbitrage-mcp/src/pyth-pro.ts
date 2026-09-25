@@ -1,6 +1,5 @@
-import { AAPL_FEED_IDS, AAPL_MARKETS, type AaplMarketSymbol, type ReferencePrice } from "./markets.js";
+import { FEED_IDS, type MarketSymbol, type ReferencePrice } from "./markets.js";
 
-export const AAPL_SYMBOLS = Object.values(AAPL_MARKETS) as AaplMarketSymbol[];
 const PYTH_PRO_REST_URL = "https://pyth-lazer.dourolabs.app/v1/latest_price";
 const SESSIONS = new Set(["regular", "preMarket", "postMarket", "overNight", "closed"]);
 
@@ -39,7 +38,7 @@ function scaledPrice(mantissa: bigint, exponent: number, label: string): number 
 }
 
 /** Decode one Pyth Pro latest-price response requested for exactly one symbol. */
-export function parsePythLatest(symbol: AaplMarketSymbol, payload: unknown): ReferencePrice {
+export function parsePythLatest(symbol: MarketSymbol, payload: unknown): ReferencePrice {
   const envelope = object(payload, "response");
   const parsed = object(envelope.parsed, "parsed payload");
   const feeds = parsed.priceFeeds;
@@ -56,7 +55,7 @@ export function parsePythLatest(symbol: AaplMarketSymbol, payload: unknown): Ref
   if (!Number.isSafeInteger(feedId) || feedId < 0 || !Number.isSafeInteger(publisherCount) || publisherCount < 0) {
     throw new Error(`Invalid Pyth feed metadata for ${symbol}`);
   }
-  if (feedId !== AAPL_FEED_IDS[symbol]) throw new Error(`Unexpected Pyth feed ID for ${symbol}: ${feedId}`);
+  if (feedId !== FEED_IDS[symbol]) throw new Error(`Unexpected Pyth feed ID for ${symbol}: ${feedId}`);
   if (typeof feed.marketSession !== "string" || !SESSIONS.has(feed.marketSession)) {
     throw new Error(`Invalid Pyth market session for ${symbol}`);
   }
@@ -84,7 +83,7 @@ export class PythProMarketClient {
     if (!accessToken) throw new Error("PYTH_PRO_ACCESS_TOKEN is required");
   }
 
-  async fetchLatest(symbol: AaplMarketSymbol): Promise<ReferencePrice> {
+  async fetchLatest(symbol: MarketSymbol): Promise<ReferencePrice> {
     const response = await this.fetcher(this.endpoint, {
       method: "POST",
       headers: { authorization: `Bearer ${this.accessToken}`, "content-type": "application/json" },

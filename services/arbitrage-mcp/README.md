@@ -8,7 +8,23 @@ receipts are subsequent work.
 It holds no treasury key and exposes no state-changing tools. A future
 Execution MCP will reload the Realms mandate before any signed action.
 
-## Initial universe
+## Market profiles
+
+`PYTH_MARKET_PROFILE=free-trial` is the runtime default:
+
+- `Crypto.BTC/USD` — feed ID 1.
+- `Crypto.WBTC/USD` — feed ID 103.
+- `Equity.US.TSLA/USD` — feed ID 1435.
+- `Equity.US.VOO/USD` — feed ID 1472.
+- `Equity.US.QQQ/USD` — feed ID 1363.
+
+All five returned HTTP 200 with the configured trial key on 2026-09-25.
+Only BTC/WBTC is compared. TSLA, VOO, and QQQ are watchlist context, never
+cross-asset arbitrage signals. WBTC has custody/redemption risks and no live
+Solana venue has been verified. This remains a read-only reference spread.
+
+### Optional stock strategy (`PYTH_MARKET_PROFILE=apple`)
+
 
 - `Equity.US.AAPL/USD` — Pyth Pro feed ID 922.
 - `Crypto.AAPLX/USD` — Pyth Pro feed ID 1792.
@@ -39,10 +55,10 @@ the bearer token. Configure Hosted Hermes with the same token through its
 
 `get_market_state` returns each feed's raw mantissa, exponent, normalized USD
 price, confidence, publisher count, market session, stream time, and feed update
-time. It also returns the three basis readings when both feeds are present.
+time. It returns only the selected profile's basis pairs when both feeds are present.
 
-`scan_opportunities` returns AAPLX and AAPLON discounts to the Apple equity
-reference. Each signal is classified as `price-dislocation` and explicitly
+`scan_opportunities` returns WBTC discounts to BTC in trial mode, or AAPLX and
+AAPLON discounts to Apple equity in the stock profile. Each signal is classified as `price-dislocation` and explicitly
 `actionable: false`. Stale or carried-forward prices and a closed equity session
 are surfaced as issues. Venue quotes and a governed execution path must be added
 before any signal can become a trade plan.

@@ -10,7 +10,9 @@ The rehearsal uses synthetic inputs and explicitly marks every record as such.
 - Repository: <https://github.com/wanesurf/afterhours-agentic-dao> (private).
 - Railway deployment: `04ab1f9a-455f-4fd7-8fb8-5301bf159cc9`, status `SUCCESS`.
 - Production governance and all six policy scenarios passed HTTP checks.
-- Production uses labeled sample prices; the Pro key is configured locally only.
+- The tested local update uses the Pyth trial watchlist: BTC, WBTC, TSLA, VOO, and QQQ.
+  Only BTC/WBTC forms a reference pair; the stocks/ETFs are context.
+  Production activation awaits approval to store the Pyth key in Railway.
 - Source publication remains private by the owner's explicit request. A submission
   that requires public code will need a later visibility change or judge access.
 
@@ -41,8 +43,9 @@ model completion; a real conversation must also pass before claiming chat works.
 
 1. Open **The governed desk**. Inspect the finalized governance settings and the
    actual proposal table. Follow the proposal explorer link.
-2. Show the three Apple feeds. Read the source label. If the Pyth key lacks feed
-   access, show that condition instead of representing sample prices as live.
+2. Show the five trial feeds and BTC/WBTC spread. Read timestamps and quality
+   labels. Tesla, VOO, and QQQ are observation only. Apple feeds need additional
+   access; the separate policy scenarios remain explicitly synthetic Apple cases.
 3. Run **Trade inside the limits**. The schema and risk precheck pass. Execution
    remains blocked because there is no connected approved mandate or signer.
 4. Run **Trade exceeds the budget**, then **Reference price is stale**. Both must
@@ -55,7 +58,7 @@ model completion; a real conversation must also pass before claiming chat works.
 
 ## Verified on 2026-09-25
 
-- 28 automated tests passed, including all six policy scenarios, HTTP routes,
+- 31 automated tests passed, including all six policy scenarios, HTTP routes,
   record integrity, governance account owner rejection, and explicit Pyth errors.
 - Finalized governance read succeeded on mainnet.
 - Governance account: `Haf7oXbQ1JREia8gWk9yv3ebtv9BXMiL1jgzo5LSVkhD`.
@@ -71,8 +74,10 @@ model completion; a real conversation must also pass before claiming chat works.
 - Native treasury: `C2AzjtqK7LCQ8yvUpxHq6noVeMGpK1MFoeaDyJayHBcF`; observed balance
   0.50692152 SOL. This is the governance native treasury, not an isolated strategy
   vault or the total value of all DAO assets.
-- Pyth Pro returned HTTP 403 `Not entitled` for the required feeds. The key is in
-  the ignored local environment file. No secret appears in client assets.
+- Pyth Pro returned HTTP 200 for BTC (1), WBTC (103), TSLA (1435), VOO (1472), and
+  QQQ (1363) at `fixed_rate@1000ms`. Apple/AAPLX/AAPLON still need entitlement.
+  The trial lasts 14 days according to the account screen; expiry is not hidden
+  by a synthetic fallback. Keys remain server-side.
 - Hosted Hermes `/v1/models` and `/p/default/v1/models` redirect to dashboard login.
   Website chat has no verified public agent API endpoint yet.
 
@@ -87,8 +92,8 @@ TEE operation, and OMP upgrades are not implemented in this repository.
 
 Suggested accurate submission sentence:
 
-> The Stocklana prototype reads our deployed Solana DAO, implements a Pyth-based
-> Apple market scanner, and demonstrates deterministic mandate and risk checks
+> The Stocklana prototype reads our deployed Solana DAO, reads five live Pyth trial feeds,
+> compares BTC/WBTC reference prices, and demonstrates deterministic mandate and risk checks
 > through an inspectable policy rehearsal. DAO-funded Solana execution and
 > settlement are the next integration milestone; historical live execution is
 > demonstrated separately by our Robinhood Chain prototype.

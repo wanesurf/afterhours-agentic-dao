@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
 import { createServer, type Server } from "node:http";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { readDaoStatus } from "../../../packages/dao-client/src/deployed-dao.js";
-import { AAPL_FEED_IDS, AAPL_MARKETS, type AaplMarketSymbol, type ReferencePrice } from "../../../services/arbitrage-mcp/src/markets.js";
+import { FEED_IDS, AAPL_MARKETS, TRIAL_MARKETS, APPLE_PROFILE, selectMarketProfile, type MarketProfile, type MarketSymbol, type ReferencePrice } from "../../../services/arbitrage-mcp/src/markets.js";
 import { PythProMarketClient } from "../../../services/arbitrage-mcp/src/pyth-pro.js";
 import { analyzePrices, readMarketState, scanConvergence, type MarketState } from "../../../services/arbitrage-mcp/src/scanner.js";
 
@@ -18,10 +18,10 @@ export interface WebMarketProvider {
   read(): Promise<MarketState>;
 }
 
-function samplePrice(symbol: AaplMarketSymbol, priceUsd: number, nowMs: number): ReferencePrice {
+function samplePrice(symbol: MarketSymbol, priceUsd: number, nowMs: number): ReferencePrice {
   return {
     symbol,
-    feedId: AAPL_FEED_IDS[symbol],
+    feedId: FEED_IDS[symbol],
     priceUsd,
     confidenceUsd: 0.04,
     priceMantissa: String(Math.round(priceUsd * 100_000)),
@@ -34,12 +34,17 @@ function samplePrice(symbol: AaplMarketSymbol, priceUsd: number, nowMs: number):
   };
 }
 
-export function sampleMarketState(nowMs = Date.now()): MarketState {
+export function sampleMarketState(nowMs = Date.now(), profile: MarketProfile = APPLE_PROFILE): MarketState {
   return analyzePrices({
     [AAPL_MARKETS.equity]: samplePrice(AAPL_MARKETS.equity, 200, nowMs),
     [AAPL_MARKETS.xStocks]: samplePrice(AAPL_MARKETS.xStocks, 195, nowMs),
     [AAPL_MARKETS.ondo]: samplePrice(AAPL_MARKETS.ondo, 198, nowMs),
-  }, nowMs);
+    [TRIAL_MARKETS.bitcoin]: samplePrice(TRIAL_MARKETS.bitcoin, 80_000, nowMs),
+    [TRIAL_MARKETS.wrappedBitcoin]: samplePrice(TRIAL_MARKETS.wrappedBitcoin, 79_500, nowMs),
+    [TRIAL_MARKETS.tesla]: samplePrice(TRIAL_MARKETS.tesla, 300, nowMs),
+    [TRIAL_MARKETS.sp500]: samplePrice(TRIAL_MARKETS.sp500, 600, nowMs),
+    [TRIAL_MARKETS.nasdaq]: samplePrice(TRIAL_MARKETS.nasdaq, 500, nowMs),
+  }, nowMs, undefined, {}, profile);
 }
 
 const STATIC_FILES = {
@@ -147,11 +152,12 @@ export function startWebFromEnvironment(): Server {
   const host = process.env.WEB_HOST || "127.0.0.1";
   const port = Number(process.env.PORT || process.env.WEB_PORT || "8780");
   if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error("Invalid WEB_PORT");
+  const profile = selectMarketProfile(process.env.PYTH_MARKET_PROFILE);
   const token = process.env.PYTH_PRO_ACCESS_TOKEN;
   const mode: DataMode = token ? "live" : "sample";
   const provider: WebMarketProvider = { read: cachedReader(token
-    ? () => readMarketState(new PythProMarketClient(token))
-    : () => Promise.resolve(sampleMarketState()), 2_000) };
+    ? () => readMarketState(new PythProMarketClient(token), profile)
+    : () => Promise.resolve(sampleMarketState(Date.now(), profile)), 2_000) };
   const origin = process.env.WEB_ORIGIN || (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` : `http://localhost:${port}`);
   const server = createWebServer(provider, mode, {
     origin,
