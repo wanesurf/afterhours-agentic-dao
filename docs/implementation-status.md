@@ -8,9 +8,9 @@ The migration app remains at https://migration.afterhouragent.xyz.
 Canonical-domain HTTPS and anonymous sessions passed live checks.
 Page, banner, health, and secure anonymous-session checks passed on 2026-09-25.
 The Hermes API is not yet reachable; live replies remain explicitly unavailable.
-Market data currently uses the labeled sample mode. Git remains unpublished.
+Market data currently uses the labeled sample mode. The GitHub repository is private.
 
-## Local integrated demo (2026-09-25)
+## Integrated demo (2026-09-25)
 
 `/demo` now reads the actual governance settings and proposals, displays live data
 availability, and runs six explicitly synthetic policy scenarios. It offers
@@ -22,7 +22,8 @@ The Pyth key has been configured locally, but all three required feeds return
 HTTP 403 (not entitled). The live site still uses its existing sample configuration.
 The latest finalized read found only the completed council metadata proposal;
 there is no approved trading strategy. Full vault funding, execution, and returns
-remain unimplemented. The new local changes have not been deployed.
+remain unimplemented. The new demo is deployed at https://afterhouragent.xyz/demo; production governance
+and rehearsal requests passed. GitHub source remains private.
 
 ## Implemented
 

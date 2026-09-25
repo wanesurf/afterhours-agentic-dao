@@ -35,8 +35,9 @@ fees, liquidity, slippage, freshness, and the active DAO mandate.
 ## Current status
 
 The landing page, manifesto, and read-only market monitor are deployed at
-https://afterhouragent.xyz. The repo remains unpublished. The local `/demo` page
-now combines live finalized governance reads with six synthetic policy scenarios
+https://afterhouragent.xyz. The source repository is private at
+https://github.com/wanesurf/afterhours-agentic-dao. The deployed `/demo` page
+combines live finalized governance reads with six synthetic policy scenarios
 and downloadable decision records. See [the demo runbook](docs/demo-runbook.md)
 for the exact walkthrough and current evidence.
 
@@ -68,7 +69,8 @@ pnpm demo:check http://localhost:8786
 Open `/demo` for the governed-desk rehearsal and `/markets` for the price monitor.
 The demo makes no transactions. Policy test records are explicitly synthetic;
 their hashes are not onchain transaction signatures. The session store supports
-one web process. New demo changes are local until separately deployed.
+one web process. The governed-desk release was verified in production on
+2026-09-25 (Railway deployment `04ab1f9a-455f-4fd7-8fb8-5301bf159cc9`).
 
 ## Design principles
 

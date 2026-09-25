@@ -4,6 +4,16 @@ The current build demonstrates **live governance inspection and a complete local
 policy rehearsal**. It does not demonstrate a DAO-funded Solana trade or settlement.
 The rehearsal uses synthetic inputs and explicitly marks every record as such.
 
+## Deployed demo and private source
+
+- Demo: <https://afterhouragent.xyz/demo>.
+- Repository: <https://github.com/wanesurf/afterhours-agentic-dao> (private).
+- Railway deployment: `04ab1f9a-455f-4fd7-8fb8-5301bf159cc9`, status `SUCCESS`.
+- Production governance and all six policy scenarios passed HTTP checks.
+- Production uses labeled sample prices; the Pro key is configured locally only.
+- Source publication remains private by the owner's explicit request. A submission
+  that requires public code will need a later visibility change or judge access.
+
 ## Start
 
 ```sh

@@ -1,32 +1,35 @@
 # Stocklana hackathon scope
 
-## Submission goal
+## Product target
 
-Demonstrate a governed agent that uses Pyth market data to find tokenized-stock
-price dislocations, validates them against live Solana liquidity, and executes
-within a holder-approved mandate. Authenticated holders can converse with the
-agent and audit its reasoning without gaining execution authority.
+A DAO approves an executable mandate, allocates capped capital to an isolated
+vault, and receives the proceeds and receipts from an agent operating within its
+limits. Pyth reference data informs decisions; executable venue quotes determine
+actual trades. The end-to-end funded-vault path is not implemented yet.
 
-## In scope
+## Demonstrable build
 
-- One Realms-governed strategy vault.
-- Hosted Hermes with separate internal and holder-chat toolsets.
-- Wallet-signature authentication and $AFTERHOUR balance gating.
-- A token-gated, read-only holder conversation with the agent.
-- Official Pyth MCP integration.
-- Direct Pyth Pro streaming in the Arbitrage MCP.
-- The AAPL, AAPLX, and AAPLON comparison strategy.
-- The agent Purchase Tessera and Pre stocks
-- Hummingbot or venue quote integration.
-- Policy validation, simulation, controlled execution, and public receipts.
-- A web experience that explains the mandate and execution trail.
-- A first governed strategy that can improve through transparent, DAO-approved upgrades.
+- Live finalized Solana governance settings, treasury SOL balance and proposals.
+- Pyth Pro adapter and read-only Arbitrage MCP for AAPL, AAPLX and AAPLON.
+- Explicit feed access, freshness, confidence and market-session error states.
+- Deterministic execution preflight and six synthetic policy rehearsals.
+- Downloadable decision records with content hashes, never presented as trades.
+- Roman landing page, manifesto and the integrated governed-desk demo.
+- Public conversation interface without wallet gating; live Hermes replies still
+  need a reachable authenticated API endpoint.
+- Separate historical Robinhood execution evidence and migration ledger.
 
-## Later
+## Integration gaps
 
-- Multiple strategy vaults.
-- Holder-delegated capital vaults and DAO performance fees.
-- DAO-authorized MCP and code upgrades with attested deployments.
-- Additional equities, issuers, venues, and hedging mechanisms.
-- Confidential execution or TEE-backed signing infrastructure.
-- Self improving agent (with OMP)
+The configured Pyth key lacks access to the three required feeds. Hosted Hermes
+is not externally connected to the website. Venue quotes, executable mandate
+instructions, strategy vault funding, exact transaction simulation, restricted
+signing, confirmation and settlement remain missing. Clawpump execution,
+PreStocks execution and x402 market-data payments on Solana are not implemented.
+
+## Later product direction
+
+Multiple strategy vaults, DAO-authorized capabilities and code upgrades, TEE
+execution, OMP integration, additional assets, and measured strategy improvement.
+
+See [demo runbook](demo-runbook.md) for tested steps and submission wording.
