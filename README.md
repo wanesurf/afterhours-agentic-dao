@@ -25,10 +25,6 @@ DAOs are transparent and slow. Trading agents are fast, usually owned by one ope
 | X | https://x.com/AfterHoursDAO |
 | Founder | https://x.com/helwan_mande |
 
-Prototype receipts:
-
-- [NVDA sale](https://robinhoodchain.blockscout.com/tx/0x95656e3f28cc6e1a1754282f2c14d279e897738b1ab79a25217c5d325adce52c)
-
 Solana token: `A9FBHUz352WGYC3GUpPdQe1bKUCLojvLMsa5uxatuYwn`
 
 ## How it works
