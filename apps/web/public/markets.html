@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e5e4dc">
+  <title>Afterhours — Apple market monitor</title>
+  <meta name="description" content="Reference prices for the Afterhours equity mandate. A read-only market monitor for a holder-governed agent and an isolated, capped vault.">
+  <link rel="stylesheet" href="/markets.css">
+  <script defer src="/markets.js"></script>
+  <link rel="stylesheet" href="/navigation.css">
+  <link rel="canonical" href="https://afterhouragent.xyz/markets">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Afterhours">
+  <meta property="og:title" content="Afterhours — Apple market monitor">
+  <meta property="og:description" content="Reference prices for the Afterhours equity mandate. A read-only market monitor for a holder-governed agent and an isolated, capped vault.">
+  <meta property="og:url" content="https://afterhouragent.xyz/markets">
+  <meta property="og:image" content="https://afterhouragent.xyz/assets/afterhours-og-925f20bcb1e0.png">
+  <meta property="og:image:secure_url" content="https://afterhouragent.xyz/assets/afterhours-og-925f20bcb1e0.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1360">
+  <meta property="og:image:height" content="768">
+  <meta property="og:image:alt" content="Afterhour stands before a classical assembly beneath the words: The Agentic DAO for the tokenized economy.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Afterhours — Apple market monitor">
+  <meta name="twitter:description" content="Reference prices for the Afterhours equity mandate. A read-only market monitor for a holder-governed agent and an isolated, capped vault.">
+  <meta name="twitter:image" content="https://afterhouragent.xyz/assets/afterhours-og-925f20bcb1e0.png">
+  <meta name="twitter:image:alt" content="Afterhour stands before a classical assembly beneath the words: The Agentic DAO for the tokenized economy.">
+</head>
+<body>
+  <div class="shell">
+    <header class="site-header">
+      <a class="wordmark" href="/" aria-label="Afterhours home">Afterhours.</a>
+      <a class="header-context" href="/demo">Explore the governed desk</a>
+      <span class="header-state" id="header-state">Connecting to market data</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="section-index">Strategy 01 <span aria-hidden="true">/</span> Tokenized equities</p>
+          <h1 id="hero-title">Apple trades<br>three ways.</h1>
+          <p class="hero-description">One underlying stock, two tokenized markets. This monitor shows the reference prices behind an equity mandate. Execution belongs inside a holder-approved budget and an isolated vault.</p>
+        </div>
+        <div class="hero-aside">
+          <div class="source-status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="data-mode">Loading data source</span>
+          </div>
+          <p id="source-note">Reading the three Pyth feeds.</p>
+          <div class="readout">
+            <span>Trading state</span>
+            <strong>Observation only</strong>
+          </div>
+          <div class="readout">
+            <span>Market checks</span>
+            <strong id="market-checks">Waiting for data</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="market-section" aria-labelledby="market-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-index">Reference prices</p>
+            <h2 id="market-title">The three markets</h2>
+          </div>
+          <button class="refresh-button" id="refresh-button" type="button">Refresh prices</button>
+        </div>
+        <p class="section-intro">Pyth prices are evidence of a gap. They are not executable buy or sell quotes.</p>
+        <div class="market-grid" id="markets" aria-live="polite"></div>
+      </section>
+
+      <section class="analysis-grid" aria-label="Market analysis">
+        <div class="basis-section">
+          <div class="section-heading compact">
+            <div>
+              <p class="section-index">Spread map</p>
+              <h2>How far apart?</h2>
+            </div>
+          </div>
+          <p class="section-intro">A positive basis means the second market is priced above the first.</p>
+          <div id="basis" class="basis-list"></div>
+        </div>
+        <div class="signal-section">
+          <div class="section-heading compact">
+            <div>
+              <p class="section-index">Agent watchlist</p>
+              <h2>Potential discounts</h2>
+            </div>
+          </div>
+          <p class="section-intro">A gap is a candidate for review. Convergence and profit are never guaranteed.</p>
+          <div id="signals" class="signal-list"></div>
+        </div>
+      </section>
+
+      <section class="dao-section" aria-labelledby="dao-title">
+        <div>
+          <p class="section-index">Onchain governance</p>
+          <h2 id="dao-title">The DAO is live.</h2>
+          <p class="section-intro">The Realm, governance account, and both token mints are checked against finalized Solana mainnet accounts.</p>
+          <a class="realm-link" href="https://v2.realms.today/dao/HLbzfAQP4b5oFBh8CeQ6DQSX1zr8kjjejxuywU2yYeCK" target="_blank" rel="noopener noreferrer">Open Afterhours on Realms</a>
+        </div>
+        <div class="dao-details">
+          <div class="dao-row"><span>Realm</span><code>HLbzf…yYeCK</code></div>
+          <div class="dao-row"><span>Community mint</span><code>A9FBH…tuYwn</code></div>
+          <div class="dao-row"><span>Governance account</span><code>Haf7o…SVkhD</code></div>
+          <div class="dao-row"><span>Account verification</span><strong id="dao-verification">Checking finalized state</strong></div>
+          <p class="dao-slot" id="dao-slot">Reading Solana mainnet</p>
+        </div>
+      </section>
+
+      <section class="boundary" aria-labelledby="boundary-title">
+        <div>
+          <p class="section-index">Execution boundary</p>
+          <h2 id="boundary-title">A price gap cannot sign a trade.</h2>
+        </div>
+        <p>The intended boundary is one mandate, one isolated vault, and one capped budget. Execution requires fresh venue quotes, the active Realms mandate, current vault exposure, and a successful transaction simulation. Autonomous execution on Solana is still being built; this page is a read-only view.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Afterhours <span aria-hidden="true">/</span> governed by holders</span>
+      <a href="/manifesto">Read the manifesto</a>
+      <span id="updated-at">No market read yet</span>
+      <a href="https://app.pyth.com/explore/all" target="_blank" rel="noopener noreferrer">Explore Pyth feeds</a>
+    </footer>
+  </div>
+</body>
+</html>

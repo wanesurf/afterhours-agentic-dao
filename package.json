@@ -1,0 +1,33 @@
+{
+  "name": "afterhours-agentic-dao",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.3.0",
+  "type": "module",
+  "description": "A governed autonomous agent for tokenized markets on Solana.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc && node scripts/build-web.mjs",
+    "test": "pnpm build && node --test dist/tests/*.test.js",
+    "start:arbitrage-mcp": "node dist/services/arbitrage-mcp/src/server.js",
+    "start:web": "node dist/apps/web/src/server.js",
+    "demo:check": "node scripts/check-demo.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.6",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource/marcellus": "^5.3.0",
+    "@modelcontextprotocol/sdk": "^1.30.1",
+    "@solana/spl-governance": "0.3.28",
+    "@solana/web3.js": "1.98.4",
+    "bs58": "^6.0.0",
+    "zod": "^4.6.5"
+  }
+}

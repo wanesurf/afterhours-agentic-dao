@@ -1,0 +1,12 @@
+.git
+.agents
+.claude
+.env
+.env.*
+node_modules
+dist
+coverage
+*.log
+docs
+programs
+tests
