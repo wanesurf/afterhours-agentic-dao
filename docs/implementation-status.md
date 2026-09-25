@@ -8,8 +8,9 @@ The migration app remains at https://migration.afterhouragent.xyz.
 Canonical-domain HTTPS and anonymous sessions passed live checks.
 Page, banner, health, and secure anonymous-session checks passed on 2026-09-25.
 The Hermes API is not yet reachable; live replies remain explicitly unavailable.
-The local market demo uses live Pyth trial data. Production activation awaits
-approval to store the Pyth key on Railway. The GitHub repository is private.
+Production and the local market demo use live Pyth trial data. All five feeds
+passed production quality checks on 2026-09-25; the Pyth key is stored server-side
+in Railway with explicit authorization. The GitHub repository is private.
 
 ## Integrated demo (2026-09-25)
 

@@ -8,11 +8,12 @@ The rehearsal uses synthetic inputs and explicitly marks every record as such.
 
 - Demo: <https://afterhouragent.xyz/demo>.
 - Repository: <https://github.com/wanesurf/afterhours-agentic-dao> (private).
-- Railway deployment: `04ab1f9a-455f-4fd7-8fb8-5301bf159cc9`, status `SUCCESS`.
+- Railway deployment: `969ba1c7-bf0b-4d36-8804-ebd50e77ff75`, status `SUCCESS`.
 - Production governance and all six policy scenarios passed HTTP checks.
-- The tested local update uses the Pyth trial watchlist: BTC, WBTC, TSLA, VOO, and QQQ.
+- Production uses the live Pyth trial watchlist: BTC, WBTC, TSLA, VOO, and QQQ.
   Only BTC/WBTC forms a reference pair; the stocks/ETFs are context.
-  Production activation awaits approval to store the Pyth key in Railway.
+  All five passed production quality checks on 2026-09-25. The Pyth key is stored
+  only server-side in Railway, with explicit user authorization.
 - Source publication remains private by the owner's explicit request. A submission
   that requires public code will need a later visibility change or judge access.
 

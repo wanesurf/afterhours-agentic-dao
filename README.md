@@ -76,8 +76,8 @@ pnpm demo:check http://localhost:8786
 Open `/demo` for the governed-desk rehearsal and `/markets` for the price monitor.
 The demo makes no transactions. Policy test records are explicitly synthetic;
 their hashes are not onchain transaction signatures. The session store supports
-one web process. The governed-desk release was verified in production on
-2026-09-25 (Railway deployment `04ab1f9a-455f-4fd7-8fb8-5301bf159cc9`).
+one web process. The governed-desk release and five live trial feeds were verified in production on
+2026-09-25 (Railway deployment `969ba1c7-bf0b-4d36-8804-ebd50e77ff75`).
 
 ## Design principles
 
