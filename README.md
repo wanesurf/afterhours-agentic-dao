@@ -31,6 +31,21 @@ fees, liquidity, slippage, freshness, and the active DAO mandate.
 - `programs` — optional Solana programs when an onchain primitive is required.
 - `scripts` — operational scripts added only when they perform a real workflow.
 - `docs` — architecture, strategy, security, decisions, and hackathon scope.
+- `legacy/robinhood` — the original Robinhood Chain agent, dashboard, and Solidity contracts.
+
+## Legacy Robinhood desk
+
+The complete RH agent, dashboard, Solidity contracts, and tests are included in
+[`legacy/robinhood`](legacy/robinhood/README.md). Source provenance and import scope
+are documented in [`IMPORT.md`](legacy/robinhood/IMPORT.md). This standalone npm
+package is separate from the Solana build. The deployed historical desk remains at
+<https://rh.afterhouragent.xyz/>.
+
+```sh
+npm ci --prefix legacy/robinhood
+pnpm test:legacy
+npm run preview:legacy
+```
 
 ## Current status
 

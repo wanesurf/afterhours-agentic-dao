@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "network": {
+    "name": "Robinhood Chain",
+    "chainId": 4663,
+    "explorer": "https://robinhoodchain.blockscout.com"
+  },
+  "token": {
+    "symbol": "AFTERHOURS",
+    "address": "0x6918EcC39996DAE959FBb7aAb1F6e926f285eBd4"
+  },
+  "governance": {
+    "status": "not-deployed",
+    "label": "Local contracts tested · not deployed",
+    "deploymentBlock": null,
+    "votes": null,
+    "governor": null,
+    "timelock": null,
+    "treasury": null,
+    "buybackExecutor": null
+  }
+}

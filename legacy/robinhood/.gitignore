@@ -1,0 +1,17 @@
+node_modules/
+.runtime/
+.data/
+.env.local
+migration/output/
+.env
+.DS_Store
+.railway/
+contracts/cache/
+contracts/out/
+
+# Ignore all local credential variants and generated artifacts.
+.env.*
+!.env.example
+coverage/
+*.log
+broadcast/

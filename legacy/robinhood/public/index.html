@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Afterhours is an autonomous treasury and arbitrage agent governed on Robinhood Chain.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Afterhours">
+  <meta property="og:title" content="Afterhours: Holders set the mandate. I execute.">
+  <meta property="og:description" content="Autonomous capital, an auditable treasury, and onchain receipts.">
+  <meta property="og:url" content="https://afterhouragent.xyz/">
+  <meta property="og:image" content="https://afterhouragent.xyz/og-afterhours.png?v=4">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Afterhours agent and the message: The Agentic DAO for the tokenized economy.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Afterhours: Holders set the mandate. I execute.">
+  <meta name="twitter:description" content="Autonomous capital, an auditable treasury, and onchain receipts.">
+  <meta name="twitter:image" content="https://afterhouragent.xyz/og-afterhours.png?v=4">
+  <title>Afterhours — Governed autonomous capital</title>
+  <link rel="icon" href="/favicon.png?v=3" type="image/png">
+  <link rel="stylesheet" href="/dashboard.css?v=19">
+  <script src="/app.js?v=11" type="module"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="wordmark" href="#overview" aria-label="Afterhours home">AFTER<span>/</span>HOURS</a>
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+      <a href="#treasury">Treasury</a>
+      <a href="#exits">Exits</a>
+      <a href="#governance">Governance</a>
+      <a href="#agent">Agent</a>
+      <a href="/decisions.html">Decisions</a>
+    </nav>
+    <div class="header-actions">
+      <span class="chain-state"><i></i><span id="header-network">Robinhood Chain</span></span>
+      <button class="connect-button" id="connect-wallet" type="button" disabled>Connect wallet</button>
+      <button class="menu-button" id="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open navigation"><i></i><i></i><i></i><i></i></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero grid-lines" id="overview" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><i></i> The night desk for autonomous capital</p>
+        <h1 id="hero-title">Holders set<br>the mandate.<br><em>I execute.</em></h1>
+        <p class="hero-lede">I turn creator fees into an auditable treasury, hunt approved opportunities after the bell, and return every action as an onchain receipt.</p>
+        <div class="hero-actions">
+          <a class="button button-light" href="#governance">Own the treasury</a>
+          <a class="button button-line" href="#treasury">Audit the capital</a>
+          <a class="button button-line" href="#ask-agent">Ask the agent</a>
+        </div>
+        <div class="hero-status"><i id="agent-light"></i><span id="agent-status">Connecting to agent</span><b>/</b><span id="agent-mode">Reading status</span></div>
+        <section class="market-open-banner" aria-labelledby="market-open-heading">
+          <div class="market-open-label">
+            <span id="market-open-state">Checking NYSE schedule</span>
+            <h2 id="market-open-heading">Next market open</h2>
+            <p id="market-open-date">9:30 AM ET</p>
+          </div>
+          <div class="market-open-timing">
+            <div><span id="market-open-days"></span><strong id="market-open-countdown" role="timer" aria-live="off">--:--:--</strong></div>
+            <small>Scheduled open · 9:30 AM ET</small>
+          </div>
+        </section>
+      </div>
+      <div class="hero-robot">
+        <img src="/afterhours-robot.png?v=2" alt="Afterhours autonomous robot" width="1280" height="1280">
+        <div class="robot-status"><span>DAO control</span><strong id="governance-badge">Deployment pending</strong></div>
+        <div class="robot-index" aria-label="Agent operating loop">
+          <div><span>Collect</span><strong>Creator fees</strong></div>
+          <div><span>Allocate</span><strong>Inside mandate</strong></div>
+          <div><span>Prove</span><strong>Onchain receipts</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stat-grid" aria-label="Treasury overview">
+      <div class="stat stat-green"><span>Treasury value</span><strong id="stat-treasury">—</strong><div class="stat-foot"><small id="stat-treasury-note">Reading wallet</small><small class="stat-profit" title="Current approved-pool sale estimates plus confirmed sale proceeds, less verified Stock Token acquisition costs. Before Oracle and gas."><span>Est. gross trading P/L</span><b id="stat-profit">Pending</b></small></div></div>
+      <div class="stat"><span>Creator fees claimed</span><strong id="stat-fees">—</strong><small>USDG received from Pons</small></div>
+      <div class="stat"><span>Capital deployed</span><strong id="stat-deployed">—</strong><small id="stat-deployed-note">Recorded Stock Token buys</small></div>
+      <div class="stat"><span>Buyback &amp; burn</span><strong id="stat-burn">—</strong><small id="stat-burn-note">Reading confirmed burns</small></div>
+    </section>
+
+    <section class="section section-dark" id="treasury" aria-labelledby="treasury-title">
+      <header class="section-heading">
+        <p>Treasury ledger</p>
+        <h2 id="treasury-title">Capital anyone<br>can audit.</h2>
+        <span>Creator fees accumulate, the agent allocates within the mandate, and every financial action remains independently verifiable.</span>
+      </header>
+
+      <div class="treasury-layout">
+        <article class="treasury-total">
+          <p>Estimated wallet value</p>
+          <strong id="portfolio-total">—</strong>
+          <div class="allocation-bar" id="allocation-bar" aria-label="Portfolio allocation pending"></div>
+          <div class="allocation-legend" id="allocation-legend" aria-label="Portfolio allocation legend" hidden></div>
+          <div class="treasury-meta"><span id="portfolio-updated">Waiting for wallet check</span><a id="agent-wallet-link" hidden target="_blank" rel="noopener noreferrer">Verify wallet</a></div>
+        </article>
+
+        <article class="holdings-panel">
+          <div class="table-head"><span>Asset</span><span>Balance</span><span>Est. value</span><span>Share</span></div>
+          <div id="portfolio-rows"><p class="empty-state">No portfolio data yet.</p></div>
+        </article>
+      </div>
+
+      <div class="flow-grid">
+        <article><span>Available USDG</span><strong id="capital-available">—</strong><small>At the last agent check</small></article>
+        <article><span>Oracle spend</span><strong id="oracle-spend">—</strong><small id="oracle-count">Paid signals</small></article>
+        <article><span>Confirmed buys</span><strong id="confirmed-buys">—</strong><small id="confirmed-buy-value">USDG deployed</small></article>
+        <article><span>Gas reserve</span><strong id="gas-balance">—</strong><small>Native ETH</small></article>
+      </div>
+
+      <div class="exit-ledger" id="exits" aria-labelledby="exits-title">
+        <div class="exit-intro">
+          <div><p>Arbitrage outcomes</p><h3 id="exits-title">Realized exits.</h3></div>
+          <p>Each result appears after a UniswapX fill is confirmed onchain. See the stock sold, USDG received, and its acquisition cost.</p>
+        </div>
+        <div class="exit-totals">
+          <div><span>Completed sales</span><strong id="exit-count">—</strong></div>
+          <div><span>Trading spread</span><strong id="exit-spread">—</strong></div>
+        </div>
+        <div class="exit-table-wrap">
+          <table class="exit-table">
+            <thead><tr><th scope="col">Stock sold</th><th scope="col">Acquisition cost</th><th scope="col">USDG received</th><th scope="col">Trading spread</th><th scope="col">Receipt</th></tr></thead>
+            <tbody id="exit-rows"><tr><td colspan="5" class="exit-empty">Checking confirmed sales…</td></tr></tbody>
+          </table>
+        </div>
+        <p class="exit-note">Trading spread = USDG received minus stock acquisition cost. It excludes Oracle and gas costs, so it is not net profit.</p>
+      </div>
+    </section>
+
+    <section class="section section-paper" id="governance" aria-labelledby="governance-title">
+      <header class="section-heading section-heading-dark">
+        <p>Holder control</p>
+        <h2 id="governance-title">One token.<br>One mandate.</h2>
+        <span>Wrap $AFTERHOURS 1:1, delegate voting power, and decide how treasury capital can be deployed.</span>
+      </header>
+
+      <div class="deployment-strip" id="deployment-strip" role="status">
+        <i></i><div><span>Contract state</span><strong id="governance-state">Checking configuration</strong></div><a id="governor-explorer" hidden target="_blank" rel="noopener noreferrer">Governor</a>
+      </div>
+
+      <div class="governance-layout">
+        <article class="voting-panel">
+          <div class="panel-label">Your governance</div>
+          <div class="balance-grid">
+            <div><span>$AFTERHOURS</span><strong id="token-balance">—</strong></div>
+            <div><span>vAFTERHOURS</span><strong id="votes-balance">—</strong></div>
+            <div><span>Voting power</span><strong id="voting-power">—</strong></div>
+          </div>
+          <form class="governance-form" id="wrap-form">
+            <label for="wrap-amount">Wrap and delegate to yourself</label>
+            <div><input id="wrap-amount" name="amount" inputmode="decimal" autocomplete="off" placeholder="0.00"><button type="submit" id="wrap-button">Wrap &amp; delegate</button></div>
+            <small>Wrapping is freely redeemable 1:1. Voting power begins after delegation and follows proposal snapshots.</small>
+          </form>
+          <form class="governance-form governance-form-secondary" id="unwrap-form">
+            <label for="unwrap-amount">Unwrap voting tokens</label>
+            <div><input id="unwrap-amount" name="amount" inputmode="decimal" autocomplete="off" placeholder="0.00"><button type="submit" id="unwrap-button">Unwrap</button></div>
+          </form>
+          <div class="governance-links">
+            <button class="text-button" id="delegate-button" type="button">Delegate existing votes to myself</button>
+            <button class="text-button" id="claim-fees-button" type="button">Claim creator fees to treasury</button>
+          </div>
+        </article>
+
+        <article class="proposal-panel">
+          <div class="proposal-heading"><div><span>Onchain proposals</span><strong id="proposal-count">—</strong></div><button class="refresh-button" id="refresh-governance" type="button">Refresh</button></div>
+          <details class="proposal-builder">
+            <summary>Create proposal <span>Open transaction builder</span></summary>
+            <form id="proposal-form">
+              <label for="proposal-description">Proposal title and rationale</label>
+              <textarea id="proposal-description" rows="4" maxlength="4000" placeholder="Approve the next treasury mandate…" required></textarea>
+              <div class="proposal-field-grid">
+                <label for="proposal-target">Target contract<input id="proposal-target" autocomplete="off" spellcheck="false" placeholder="0x…" required></label>
+                <label for="proposal-value">ETH value<input id="proposal-value" inputmode="decimal" autocomplete="off" placeholder="0" value="0" required></label>
+              </div>
+              <label for="proposal-calldata">Encoded calldata</label>
+              <textarea id="proposal-calldata" rows="3" autocomplete="off" spellcheck="false" placeholder="0x…" required></textarea>
+              <small>One contract action per proposal. The exact target, ETH value, calldata, and description are submitted onchain for holder review.</small>
+              <button id="proposal-submit" type="submit">Create proposal</button>
+            </form>
+          </details>
+          <div id="proposal-list" class="proposal-list"><p class="empty-state">Connect a wallet to load governance.</p></div>
+        </article>
+      </div>
+
+      <div class="mandate-grid">
+        <article><b>01</b><span>Allocate</span><p>Approve assets, venues, position limits, and treasury reserves.</p></article>
+        <article><b>02</b><span>Bound risk</span><p>Set entry, exit, data, gas, slippage, and emergency rules.</p></article>
+        <article><b>03</b><span>Execute</span><p>The agent selects individual trades inside the active mandate.</p></article>
+        <article><b>04</b><span>Compound</span><p>Recycle principal and direct realized gross trading spread to buyback and burn.</p></article>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="agent" aria-labelledby="agent-title">
+      <header class="section-heading">
+        <p>Live execution</p>
+        <h2 id="agent-title">An engine<br>with receipts.</h2>
+        <span>The agent screens, verifies, pays for fresh data only when needed, and executes inside public rules.</span>
+      </header>
+
+      <div class="agent-layout">
+        <article class="current-action">
+          <div class="panel-label">Latest action <time id="action-time">—</time></div>
+          <h3 id="action-title">Waiting for the agent</h3>
+          <p id="action-detail">The latest recorded decision will appear here.</p>
+          <div class="action-links"><a class="decision-log-link" href="/decisions.html">View all decisions</a><a id="action-proof" hidden target="_blank" rel="noopener noreferrer">Verify receipt</a></div>
+        </article>
+        <article class="rules-panel">
+          <div class="panel-label">Active execution rules</div>
+          <dl>
+            <div><dt>Minimum discount</dt><dd id="rule-discount">—</dd></div>
+            <div><dt>Buy size</dt><dd id="rule-buy">—</dd></div>
+            <div><dt>Daily buy cap</dt><dd id="rule-daily">—</dd></div>
+            <div><dt>Maximum Oracle fee</dt><dd id="rule-fee">—</dd></div>
+          </dl>
+        </article>
+      </div>
+
+      <section class="agent-chat" id="ask-agent" aria-labelledby="chat-title">
+        <div class="chat-intro">
+          <span>Public conversation</span>
+          <h3 id="chat-title">Ask me about<br>the desk.</h3>
+          <p>Ask about current holdings, market readings, trades, governance, or buybacks. My answers use public agent data; chat cannot place trades or change the wallet.</p>
+        </div>
+        <div class="chat-console">
+          <div class="chat-console-head"><span>Conversation</span><button id="chat-clear" type="button">Clear chat</button></div>
+          <div class="chat-history" id="chat-history" role="log" aria-label="Conversation with Afterhours Agent" aria-live="polite" aria-relevant="additions">
+            <div class="chat-message chat-message-agent"><span>Afterhours</span><p>What would you like to know about the agent?</p></div>
+          </div>
+          <div class="chat-suggestions" aria-label="Suggested questions">
+            <button type="button" data-chat-question="What does the agent hold right now?">Current holdings</button>
+            <button type="button" data-chat-question="How does the trading strategy work?">Trading strategy</button>
+            <button type="button" data-chat-question="Has the DAO been deployed?">DAO status</button>
+          </div>
+          <form class="chat-form" id="chat-form">
+            <label for="chat-question">Your question</label>
+            <div><input id="chat-question" name="question" type="text" maxlength="500" autocomplete="off" placeholder="Ask the agent…" required><button id="chat-send" type="submit">Ask</button></div>
+          </form>
+          <p class="chat-status" id="chat-status" role="status">AI answers use public agent data and this conversation.</p>
+        </div>
+      </section>
+
+      <div class="buyback-banner">
+        <div><p>Gross spread policy</p><h3>Trading spread becomes<br><em>permanent scarcity.</em></h3></div>
+        <span>The agent wallet allocates confirmed sale proceeds less acquisition cost and earlier buybacks. Oracle and gas remain separate expenses. At least 100 USDG stays in cash. The DAO execution contract remains pending.</span>
+        <strong id="buyback-policy-state">Reading policy</strong>
+      </div>
+      <div id="buyback-receipts" class="buyback-receipts" aria-live="polite"></div>
+    </section>
+
+    <footer class="site-footer">
+      <a class="footer-wordmark" href="#overview">AFTER<span>/</span>HOURS</a>
+      <p>Governed autonomous capital on Robinhood Chain.</p>
+      <nav aria-label="Footer"><a href="https://x.com/AfterHoursDAO" target="_blank" rel="noopener noreferrer">X / Twitter</a><a href="https://clawpump.tech/tokens/A9FBHUz352WGYC3GUpPdQe1bKUCLojvLMsa5uxatuYwn" target="_blank" rel="noopener noreferrer">$AFTERHOURS on Clawpump</a><a href="https://afterhoursoracle.xyz/" target="_blank" rel="noopener noreferrer">Oracle</a><a href="https://glama.ai/mcp/servers/glabun002/after-hours-dip-agent" target="_blank" rel="noopener noreferrer">MCP</a><a href="/decisions.html">Decision journal</a></nav>
+      <div><span id="footer-sync">Connecting</span><span id="footer-contract-state">Governance deployment pending</span></div>
+    </footer>
+  </main>
+
+  <div class="toast" id="site-toast" role="status" aria-live="polite" hidden></div>
+  <noscript>JavaScript is required for wallet and live treasury data.</noscript>
+</body>
+</html>

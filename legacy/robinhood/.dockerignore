@@ -1,0 +1,13 @@
+.env
+.data
+.runtime
+node_modules
+.git
+.DS_Store
+
+.env.*
+contracts/out
+contracts/cache
+broadcast
+coverage
+*.log

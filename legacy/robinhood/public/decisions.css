@@ -1,0 +1,116 @@
+:root {
+  color-scheme: dark;
+  --black: #030403;
+  --paper: #eeede7;
+  --white: #f8f8f4;
+  --green: #4bea3a;
+  --cobalt: #7895ff;
+  --red: #ff7c68;
+  --silver: #9ba19c;
+  --muted: #6f756f;
+  --line: rgba(248,248,244,.17);
+  --pad: clamp(22px,4.2vw,70px);
+  --sans: "Helvetica Neue", "Arial Nova", Helvetica, Arial, sans-serif;
+  --mono: "SFMono-Regular", "Cascadia Code", Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: var(--black); color: var(--white); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+button { color: inherit; font: inherit; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+::selection { background: var(--green); color: var(--black); }
+.skip-link { position: fixed; z-index: 100; top: -70px; left: 16px; padding: 12px 18px; background: var(--green); color: var(--black); font-weight: 700; }
+.skip-link:focus { top: 16px; }
+
+.journal-header { position: sticky; z-index: 10; top: 0; height: 72px; display: flex; justify-content: space-between; align-items: center; padding: 0 var(--pad); border-bottom: 1px solid var(--line); background: rgba(3,4,3,.92); backdrop-filter: blur(18px); }
+.wordmark { color: var(--white); font-size: 18px; font-weight: 760; letter-spacing: -.055em; text-decoration: none; }
+.wordmark span { color: var(--green); }
+.journal-header nav { display: flex; gap: 26px; }
+.journal-header nav a { color: var(--silver); font-size: 12px; text-decoration: none; }
+.journal-header nav a:hover { color: var(--white); }
+
+.journal-hero { min-height: 520px; display: grid; grid-template-columns: minmax(0,2fr) minmax(260px,.7fr); gap: clamp(42px,8vw,130px); align-items: end; padding: 92px var(--pad) 72px; border-bottom: 1px solid var(--line); background-image: linear-gradient(90deg,transparent calc(66.666% - .5px),rgba(248,248,244,.08) 66.666%,transparent calc(66.666% + .5px)); }
+.journal-kicker { display: flex; align-items: center; gap: 10px; margin: 0 0 40px; color: var(--silver); font-size: 11px; }
+.journal-kicker i { width: 8px; height: 8px; border-radius: 50%; background: #777; }
+.journal-kicker i.healthy { background: var(--green); box-shadow: 0 0 14px rgba(75,234,58,.6); }
+.journal-kicker i.degraded { background: var(--red); }
+.journal-hero h1 { max-width: 950px; margin: 0; font-size: clamp(60px,8vw,118px); font-weight: 300; letter-spacing: -.064em; line-height: .86; }
+.journal-intro { max-width: 690px; margin: 40px 0 0; color: var(--silver); font-size: clamp(16px,1.3vw,20px); line-height: 1.5; letter-spacing: -.02em; }
+.live-state { align-self: end; padding: 22px 0 3px; border-top: 1px solid var(--line); }
+.live-state span, .live-state strong, .live-state small { display: block; }
+.live-state span { color: var(--muted); font-size: 10px; }
+.live-state strong { margin-top: 24px; font-size: 28px; font-weight: 400; letter-spacing: -.035em; }
+.live-state small { margin-top: 7px; color: var(--silver); font: 10px var(--mono); }
+
+.journal-stats { display: grid; grid-template-columns: repeat(4,1fr); background: var(--paper); color: var(--black); }
+.journal-stats > div { min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; padding: 24px; border-right: 1px solid rgba(3,4,3,.2); }
+.journal-stats > div:last-child { border-right: 0; background: var(--green); }
+.journal-stats span { font-size: 11px; }
+.journal-stats strong { font-size: clamp(25px,3vw,44px); font-weight: 400; letter-spacing: -.045em; line-height: 1; overflow-wrap: anywhere; }
+
+.journal { padding: 105px var(--pad) 110px; }
+.journal-toolbar { display: flex; justify-content: space-between; align-items: end; gap: 30px; padding-bottom: 42px; border-bottom: 1px solid var(--line); }
+.journal-toolbar p { margin: 0 0 18px; color: var(--silver); font-size: 11px; }
+.journal-toolbar h2 { margin: 0; font-size: clamp(48px,6vw,86px); font-weight: 300; letter-spacing: -.055em; line-height: .9; }
+.journal-toolbar button, .load-more { min-height: 43px; padding: 0 17px; border: 1px solid var(--line); background: transparent; color: var(--white); font-size: 11px; cursor: pointer; }
+.journal-toolbar button:hover, .load-more:hover { border-color: var(--green); color: var(--green); }
+.filters { display: flex; gap: 26px; overflow-x: auto; overflow-y: hidden; border-bottom: 1px solid var(--line); scrollbar-width: none; }
+.filters::-webkit-scrollbar { display: none; }
+.filters button { position: relative; min-height: 58px; padding: 0; border: 0; background: transparent; color: var(--muted); font-size: 12px; cursor: pointer; white-space: nowrap; }
+.filters button[aria-pressed="true"] { color: var(--white); }
+.filters button[aria-pressed="true"]::after { position: absolute; right: 0; bottom: -1px; left: 0; height: 2px; background: var(--green); content: ""; }
+.filter-summary { min-height: 18px; margin: 25px 0 0; color: var(--muted); font: 10px var(--mono); }
+.decision-list { margin-top: 8px; }
+.decision-entry { display: grid; grid-template-columns: 125px 18px minmax(0,1fr); gap: 24px; border-top: 1px solid var(--line); }
+.decision-time { padding: 27px 0; }
+.decision-time span, .decision-time time { display: block; }
+.decision-time span { color: var(--muted); font-size: 10px; }
+.decision-time time { margin-top: 5px; color: var(--silver); font: 10px var(--mono); }
+.decision-rail { position: relative; }
+.decision-rail::before { position: absolute; top: 0; bottom: 0; left: 8px; width: 1px; background: var(--line); content: ""; }
+.decision-dot { position: absolute; z-index: 1; top: 30px; left: 4px; width: 9px; height: 9px; border: 2px solid var(--black); background: #777; box-shadow: 0 0 0 1px #777; }
+.category-trade .decision-dot { background: var(--green); box-shadow: 0 0 0 1px var(--green); }
+.category-data .decision-dot { background: var(--cobalt); box-shadow: 0 0 0 1px var(--cobalt); }
+.category-funding .decision-dot { background: var(--white); box-shadow: 0 0 0 1px var(--white); }
+.category-error .decision-dot { background: var(--red); box-shadow: 0 0 0 1px var(--red); }
+.decision-content { padding: 25px 0 30px; }
+.decision-meta { display: flex; flex-wrap: wrap; gap: 8px 16px; color: var(--muted); font: 9px var(--mono); }
+.decision-meta .ticker { color: var(--green); }
+.decision-content h3 { margin: 17px 0 8px; font-size: clamp(23px,2.2vw,34px); font-weight: 400; letter-spacing: -.035em; }
+.decision-content p { max-width: 850px; margin: 0; color: var(--silver); font-size: 13px; line-height: 1.55; }
+.decision-links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 17px; }
+.decision-links a { color: var(--green); font: 10px var(--mono); text-underline-offset: 4px; }
+.load-more { display: block; margin: 34px auto 0; }
+.load-more[hidden] { display: none; }
+.empty-journal { padding: 70px 0; border-top: 1px solid var(--line); color: var(--silver); font-size: 14px; }
+.journal-footer { display: flex; justify-content: space-between; gap: 25px; padding: 32px var(--pad); border-top: 1px solid var(--line); color: var(--muted); font: 10px var(--mono); }
+.journal-footer a { color: var(--white); text-underline-offset: 4px; }
+
+@media (max-width: 900px) {
+  .journal-hero { grid-template-columns: 1fr; }
+  .live-state { max-width: 500px; }
+  .journal-stats { grid-template-columns: 1fr 1fr; }
+  .journal-stats > div:nth-child(2) { border-right: 0; }
+  .journal-stats > div:nth-child(-n+2) { border-bottom: 1px solid rgba(3,4,3,.2); }
+}
+
+@media (max-width: 620px) {
+  :root { --pad: 20px; }
+  .journal-header { height: 64px; }
+  .journal-header nav { gap: 15px; }
+  .journal-header nav a { font-size: 10px; }
+  .journal-hero { min-height: 560px; padding-top: 70px; }
+  .journal-hero h1 { font-size: clamp(56px,17vw,78px); }
+  .journal-stats > div { min-height: 125px; padding: 18px; }
+  .journal { padding-top: 76px; }
+  .journal-toolbar { align-items: flex-start; flex-direction: column; }
+  .decision-entry { grid-template-columns: 78px 14px minmax(0,1fr); gap: 12px; }
+  .decision-content h3 { font-size: 23px; }
+  .journal-footer { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

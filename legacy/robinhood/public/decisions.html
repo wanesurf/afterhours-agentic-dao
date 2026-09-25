@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#030403">
+  <meta name="description" content="A readable public journal of every recorded Afterhours agent decision.">
+  <title>Decision journal — Afterhours</title>
+  <link rel="icon" href="/favicon.png?v=3" type="image/png">
+  <link rel="stylesheet" href="/decisions.css?v=1">
+  <script src="/decisions.js?v=1" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#journal">Skip to decision journal</a>
+  <header class="journal-header">
+    <a class="wordmark" href="/#overview" aria-label="Afterhours dashboard">AFTER<span>/</span>HOURS</a>
+    <nav aria-label="Decision journal navigation"><a href="/#agent">Dashboard</a><a href="/status.json" target="_blank" rel="noopener noreferrer">Raw JSON</a></nav>
+  </header>
+
+  <main>
+    <section class="journal-hero" aria-labelledby="journal-title">
+      <div>
+        <p class="journal-kicker"><i id="status-light"></i> Public agent journal</p>
+        <h1 id="journal-title">Every decision.<br>On the record.</h1>
+        <p class="journal-intro">Checks, data payments, policy gates, trades, and failures are translated from the agent’s public status feed into one readable timeline.</p>
+      </div>
+      <div class="live-state">
+        <span>Current state</span>
+        <strong id="current-state">Connecting</strong>
+        <small id="current-mode">Reading status.json</small>
+      </div>
+    </section>
+
+    <section class="journal-stats" aria-label="Agent journal summary">
+      <div><span>Last result</span><strong id="last-result">—</strong></div>
+      <div><span>Completed cycles</span><strong id="cycle-count">—</strong></div>
+      <div><span>Recorded entries</span><strong id="entry-count">—</strong></div>
+      <div><span>Last completed</span><strong id="last-completed">—</strong></div>
+    </section>
+
+    <section class="journal" id="journal" aria-labelledby="decisions-title">
+      <header class="journal-toolbar">
+        <div><p>Agent decisions</p><h2 id="decisions-title">Decision journal</h2></div>
+        <button id="refresh-decisions" type="button">Refresh data</button>
+      </header>
+      <div class="filters" aria-label="Filter decisions">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="trade" aria-pressed="false">Trades</button>
+        <button type="button" data-filter="data" aria-pressed="false">Data</button>
+        <button type="button" data-filter="funding" aria-pressed="false">Funding</button>
+        <button type="button" data-filter="error" aria-pressed="false">Issues</button>
+      </div>
+      <p class="filter-summary" id="filter-summary" role="status" aria-live="polite">Loading the public journal…</p>
+      <div class="decision-list" id="decision-list"></div>
+      <button class="load-more" id="load-more" type="button" hidden>Load earlier decisions</button>
+    </section>
+  </main>
+
+  <footer class="journal-footer"><a href="/#overview">Back to dashboard</a><span>Source: status.json and activity.json</span></footer>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "name": "pons-after-hours-scout",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "once": "node src/index.js",
+    "watch": "node src/index.js --watch",
+    "wallet": "node src/wallet.js",
+    "preflight": "node src/preflight.js",
+    "setup:upstream": "node scripts/setup-upstream.js",
+    "build:web": "esbuild frontend/app-entry.js --bundle --minify --format=esm --platform=browser --target=es2022 --outfile=public/app.js",
+    "preview:web": "node scripts/preview-dashboard.js",
+    "test": "node --test",
+    "test:buyback:fork": "node scripts/smoke-buyback-fork.js",
+    "contracts:fmt": "forge fmt --check",
+    "contracts:build": "forge build",
+    "contracts:test": "forge test -vv",
+    "contracts:test:fork": "FOUNDRY_PROFILE=fork forge test -vv --fork-url \"$ROBINHOOD_FORK_RPC_URL\"",
+    "deploy:governance": "node scripts/deploy-governance.js",
+    "deploy:treasury": "node scripts/deploy-treasury.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@x402/evm": "^2.17.0",
+    "@x402/fetch": "^2.17.0",
+    "bs58": "^6.0.0",
+    "dotenv": "^16.4.5",
+    "pg": "^8.23.0",
+    "sharp": "^0.35.4",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@openzeppelin/contracts": "5.6.1",
+    "esbuild": "^0.28.2"
+  }
+}

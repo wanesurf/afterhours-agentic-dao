@@ -14,7 +14,9 @@
     "test": "pnpm build && node --test dist/tests/*.test.js",
     "start:arbitrage-mcp": "node dist/services/arbitrage-mcp/src/server.js",
     "start:web": "node dist/apps/web/src/server.js",
-    "demo:check": "node scripts/check-demo.mjs"
+    "demo:check": "node scripts/check-demo.mjs",
+    "test:legacy": "npm --prefix legacy/robinhood test",
+    "preview:legacy": "npm --prefix legacy/robinhood run preview:web"
   },
   "devDependencies": {
     "@types/node": "^24.13.6",

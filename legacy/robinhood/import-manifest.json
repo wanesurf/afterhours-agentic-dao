@@ -1,0 +1,400 @@
+{
+  "sourceProject": "stocklana",
+  "sourceBaseCommit": "67944a415f80785862a68c0ad7a106787722bb66",
+  "sourceState": "working-tree snapshot including uncommitted changes",
+  "importedAt": "2026-09-25",
+  "sourceFiles": [
+    {
+      "path": ".dockerignore",
+      "sha256": "a3fe92d6a102cc39321018179f7e4d0db85cc2d078ba8a5a31c1949542d925d8"
+    },
+    {
+      "path": ".env.example",
+      "sha256": "b502379d5791df4dfa9846f18d4a0a25315e17de93d9a9c96bae2e5b335426ab"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "d4ebde4010e9a3eaab4037f2b0f6bb278e4975e8a2050d6f2311821f78118bad"
+    },
+    {
+      "path": "AGENT.md",
+      "sha256": "ec0706f83c81b8ffadfc74e1c08a023fc931c67bd486070ea0a3eb93de2fc54a"
+    },
+    {
+      "path": "Dockerfile",
+      "sha256": "4b8a5f7a6e60bde0a46bad9f9bfd813ee5eeeec1e72be8fec10dca56cdab9e33"
+    },
+    {
+      "path": "README.md",
+      "sha256": "f5d537b3f29ed2b14d2c3cf5614c18908d5aed401351031ef993720c7de8ec2c"
+    },
+    {
+      "path": "architecture.md",
+      "sha256": "d70a145ca65f296213f4a7b52d8281eb0916156610164c7f92481f65ee336892"
+    },
+    {
+      "path": "assets/afterhours-article-banner-5x2.png",
+      "sha256": "e681a7e4114ed8cfd798775dd424cc65203c03463612abd5d9d537235b57d4ff"
+    },
+    {
+      "path": "assets/afterhours-header-3x1.png",
+      "sha256": "14417787c1f8f847d0f0a476466b34cd2d505d1a0cb87359da59a6feaff0d994"
+    },
+    {
+      "path": "contracts/README.md",
+      "sha256": "61a570ce8a0baf3483a30db971e3cd921664685374a7312ef6a7d12138ed2297"
+    },
+    {
+      "path": "contracts/fork-test/AfterhoursTreasuryFork.t.sol",
+      "sha256": "8aaaa785872686a7b289fbe76db1944b0133ec86fdb505aaa33bad2269fce8b9"
+    },
+    {
+      "path": "contracts/src/AfterhoursGovernor.sol",
+      "sha256": "967af94dfb1375988a2812a5fff8257f0d5468a2b49fb1d225aa68dab80afb41"
+    },
+    {
+      "path": "contracts/src/AfterhoursTreasury.sol",
+      "sha256": "3a47703ca5c9d24baf2fc34438d919b8ccb776bc19cda76dc6165e5f22ffe9ec"
+    },
+    {
+      "path": "contracts/src/AfterhoursVotes.sol",
+      "sha256": "80c3d4ada00db7a7c2a25ea4fed53252bb59a74079a018a4ebeab6245f343cac"
+    },
+    {
+      "path": "contracts/src/interfaces/IPonsV2LaunchFactory.sol",
+      "sha256": "912065ac73581a240db49138c1dda6d771d533bdcd7dbe8a953a615c89cc339c"
+    },
+    {
+      "path": "contracts/src/interfaces/IPonsV2TokenFeeEscrow.sol",
+      "sha256": "088df526762179f936f6ca8fa4933fd37014ba9e9fcc8fcea9fb7775a46f382b"
+    },
+    {
+      "path": "contracts/test/AfterhoursGovernance.t.sol",
+      "sha256": "5e2b630afe9acac287cdfccd332c212d4a8d4215a121c8dec407acc3dc341206"
+    },
+    {
+      "path": "contracts/test/AfterhoursTreasury.t.sol",
+      "sha256": "c70e91f119eeabec98dd9dd7c2eb77593cef1cf0d547e4ab4b1d20126b00c8a2"
+    },
+    {
+      "path": "foundry.toml",
+      "sha256": "a6cb44f6fd27bcde692efc0132b892a58cea5fc63066f0691b175459054e6542"
+    },
+    {
+      "path": "frontend/app-entry.js",
+      "sha256": "bec57bdfc0b0a6653a29f9c8e68b796442376c9de0333c1c5f77f4c7bd709599"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "b4df4619f26f4ad67176ba48deb02342fb86bf92e7277c452edd1fa066fc8b54"
+    },
+    {
+      "path": "package.json",
+      "sha256": "69a1d635105948f882ccf473a6013751c72dc987522092887de14365504d1240"
+    },
+    {
+      "path": "public/afterhours-robot.png",
+      "sha256": "a876d1883d82d86fd3d54f8ba94c7c746f3715eaaf2bad7728e44576c827d278"
+    },
+    {
+      "path": "public/app.js",
+      "sha256": "3a133fee79ff65fb49c43b06c6475bc1c3b81620cbd7bf24aa586a917f8cc68e"
+    },
+    {
+      "path": "public/dao-config.json",
+      "sha256": "cf9cbf8c81dcac8969bfdc5056a7ce3f334601677d416401aaa64f5d4541af69"
+    },
+    {
+      "path": "public/dashboard.css",
+      "sha256": "32a192b27a1ed8a9faab0b0e34abe3f701c4c2cfa8bc4d675fa7b68f49808cf3"
+    },
+    {
+      "path": "public/decisions.css",
+      "sha256": "59f1545cf7e18d80653c8f28824ae4449b2d786a522fe1de25e6d080d215cfab"
+    },
+    {
+      "path": "public/decisions.html",
+      "sha256": "b3aa6a4ecda9bf600fe3b45e488d1bd3685d4048489a12b4736482be11148a09"
+    },
+    {
+      "path": "public/decisions.js",
+      "sha256": "c68e3c42f8d6b5c0b3969041aec66a0b9853ed38e5fd42c7de3ef346c9314fb9"
+    },
+    {
+      "path": "public/favicon.png",
+      "sha256": "129aaa2c4f786d8bafe8202fc4d7c6b17717a6d1d925868d365eb07d921974e1"
+    },
+    {
+      "path": "public/favicon.svg",
+      "sha256": "244275e2c45d53f457902468ea65deb4682acd8fa36dbb70d6f4d9209d236633"
+    },
+    {
+      "path": "public/index.html",
+      "sha256": "9637ae569677ffc481723b5ffa1ece7634515806bcd1e8ee5da8eecd31fa4a82"
+    },
+    {
+      "path": "public/market-clock.js",
+      "sha256": "a888bb6da45a4b71f638db0a0b84c8ee444f261af876638657651a1af2cfbbfe"
+    },
+    {
+      "path": "public/og-afterhours.png",
+      "sha256": "a456c3156990b8d4959dc53988fbd4c6e28ae1855f54f3a6d4cfb97a93856af1"
+    },
+    {
+      "path": "public/portfolio-performance.js",
+      "sha256": "32b5e0eda9b9bc09da05a70267aff6898c0a3abbce303d946febba732aa4c01e"
+    },
+    {
+      "path": "scripts/deploy-governance.js",
+      "sha256": "df2446d63f8da2bc219e88292f214595a0f24b5fbd96845c9b82cd14ab5fef96"
+    },
+    {
+      "path": "scripts/deploy-treasury.js",
+      "sha256": "067810dcac666e5d35367a114c4845b6ef8df4949e16e9956f55463fc4690b4b"
+    },
+    {
+      "path": "scripts/preflight-exit-basis.js",
+      "sha256": "8fc4c146492232dde72f1128fff199c2664929cd64cd6f274c73e94924233de7"
+    },
+    {
+      "path": "scripts/preflight-uniswap-exit.js",
+      "sha256": "d013f6dd6b9149feb0fa0f89c9cad93aa134b19a5c859fd340dcc50cc1bd9f0c"
+    },
+    {
+      "path": "scripts/preview-dashboard.js",
+      "sha256": "904c8557966638774d5f6a57bf659a74fa2ef25e99b982e5286470838dd23fa0"
+    },
+    {
+      "path": "scripts/setup-upstream.js",
+      "sha256": "a8b5e02e4900bbf2dc06b37fbd1aacbcfb9de9ef9fa8cda564b64f41d5e28ccd"
+    },
+    {
+      "path": "scripts/smoke-buyback-fork.js",
+      "sha256": "d825be842d6919c741ed17f1ab33cb5c99224decf3d4b89db779a97d7006a9c5"
+    },
+    {
+      "path": "src/afterhours-valuation.js",
+      "sha256": "7a171fd587252dd7b207330eeba7498f2ed207ae4b0efcb1658a0f4f9f331fdd"
+    },
+    {
+      "path": "src/buy-history.js",
+      "sha256": "1e832f84d5b38526f7521e86ea32ce1c877662a3ae0de38fd6d44912a28f4a6d"
+    },
+    {
+      "path": "src/buyback-policy.js",
+      "sha256": "ab4f6371ecf45479aa203938017e862470e63f59a8e3bae989814bc488f1c886"
+    },
+    {
+      "path": "src/buyback.js",
+      "sha256": "ce4fd043e73b4a6e2d38fded193bd35327fe11924d5e2b160b714adf4fc55285"
+    },
+    {
+      "path": "src/chain.js",
+      "sha256": "fa6013907e490fe2fc6b270060d900f77232781fac0f93f25d098cf00053dcdc"
+    },
+    {
+      "path": "src/chat.js",
+      "sha256": "3cd9c1bdd7112ab669400a6830bf7f47085006f835ddb13ab51ad3071a794a9e"
+    },
+    {
+      "path": "src/config.js",
+      "sha256": "d91dbeb0619c6b4636c779fd782f05742008a96e84d991004b3b81058700f2ff"
+    },
+    {
+      "path": "src/dex-profile.js",
+      "sha256": "46fc351f286cc2a00125f671641d694fe71a449a6c892fc849dc8ab57f16b3d4"
+    },
+    {
+      "path": "src/economics.js",
+      "sha256": "fc44a9689ca22fed6934659dbdbba1ae92fc1208fd1b893d9d90e81db89e6030"
+    },
+    {
+      "path": "src/exit-basis.js",
+      "sha256": "8e117d610c94de05b67a0bf5912ae6e24c51b81bc2208f37aa78d8339b77ec09"
+    },
+    {
+      "path": "src/exit-benchmark.js",
+      "sha256": "5dbeed52d4a2e6a63d4794e9c2b44703d10ef241e14aea8c885784b54ac021ae"
+    },
+    {
+      "path": "src/exit-policy.js",
+      "sha256": "9a78750480d7f266d910d5f421e7478c8b9fc18d1498123897724308e5e7052e"
+    },
+    {
+      "path": "src/exit.js",
+      "sha256": "aa6598059241e18cf1fe78c99b51bb10822497b1fe6a68d576fd0c735493600d"
+    },
+    {
+      "path": "src/gas-refill.js",
+      "sha256": "31c358109708eebff709e4b62ddaad3c9d8b0d58d82bdcd814f715d819234293"
+    },
+    {
+      "path": "src/index.js",
+      "sha256": "dc92bbe543e21b4cf378a84da4b2dd46dfd4edc207502cf8835cc041a55ae40d"
+    },
+    {
+      "path": "src/ledger.js",
+      "sha256": "8a264deb89e6dd15c4a296e4f69ab30736240306191095f8146e2bd6a078b894"
+    },
+    {
+      "path": "src/og-image.js",
+      "sha256": "c9fc1be6e7d5b4314bfc24498d114e619fa1462857dd0a9abf27e7716ba2ee27"
+    },
+    {
+      "path": "src/oracle.js",
+      "sha256": "e45d9e79d87c50d3613afa9ba647427aeb8dd2f01b69d7f13c2b76cf1f63bbb3"
+    },
+    {
+      "path": "src/policy.js",
+      "sha256": "c0dd3b2e667bd326b88db39279fcac6c9a4a5a18a9c6687bfcd9fefceaccafdc"
+    },
+    {
+      "path": "src/portfolio.js",
+      "sha256": "dc56c2c2254d6b1319bdb3b986bfa363dfb218809b373007107cbe03d9e1d6a7"
+    },
+    {
+      "path": "src/preflight.js",
+      "sha256": "095ad60b992d8440e1c462d6c4fd3ef3c93c738e1c8c8c86f8e28d4ad782a864"
+    },
+    {
+      "path": "src/reconcile.js",
+      "sha256": "924a6432d527decb2f9cfddfcc67361230158e9ea9f1a58df0ee846a821c1632"
+    },
+    {
+      "path": "src/schedule.js",
+      "sha256": "c3226af67533aad140d072633df1c0ce6f073f3d145437a356f08936288f006c"
+    },
+    {
+      "path": "src/social.js",
+      "sha256": "21ef0b7de785ac9f210b2f78e7ac473ce536888811af9d35f8497b62aea3343e"
+    },
+    {
+      "path": "src/status.js",
+      "sha256": "f2b4775159f5483d5db0e147e3deb6c976baace1f6b4e43bccb757de98c47b8e"
+    },
+    {
+      "path": "src/upstream.js",
+      "sha256": "edf7fe761524706cc4948330ed82927e3f198e0e9fd628d9505408bcff3fde8d"
+    },
+    {
+      "path": "src/v3.js",
+      "sha256": "5c5ce48ebd3edc235456f9e6ba9dfd117be9a6ce93286631ef50281114fe0de6"
+    },
+    {
+      "path": "src/wallet.js",
+      "sha256": "94807aa635f4313745c5a73c4cc2a6c2e0e7291e97a2723cbfe8a30d829b7dbf"
+    },
+    {
+      "path": "test/buy-history.test.js",
+      "sha256": "4622cdd4622ce305f19643a9edb664c869cd274bc05ee8fb77054bdecc5b8eb6"
+    },
+    {
+      "path": "test/buyback-policy.test.js",
+      "sha256": "2fa0edcf7d0ee555159b221e317e360287587156575c82676eed770caa0feb58"
+    },
+    {
+      "path": "test/buyback-receipt.test.js",
+      "sha256": "7fb6d666b9d93b8db7c8fd1a1b4291ec478800f5de98cf0dc8bf00d8bfb77219"
+    },
+    {
+      "path": "test/chat.test.js",
+      "sha256": "b62f7b65bf6294aec4965fe5b503399be7ce7f1288ce2611a181cc334d45ae46"
+    },
+    {
+      "path": "test/config.test.js",
+      "sha256": "ebac01a89c3b777dfb2763182e40d38ffa7610970c082803b7a754f8721ec4cb"
+    },
+    {
+      "path": "test/dex-profile.test.js",
+      "sha256": "44616d4c6855844d6707eb053594b0bc8dfa5e6367e376760723dd69c82954e7"
+    },
+    {
+      "path": "test/economics.test.js",
+      "sha256": "b27e02da73098895e1518d5b09df8d7b7bf4b5136ccec698b545e89da6835bd6"
+    },
+    {
+      "path": "test/exit-benchmark.test.js",
+      "sha256": "5b90def4be4468f21eb9fe3605c6477d11957fd230b9c659e34e0ed357e9b4b9"
+    },
+    {
+      "path": "test/exit-fill.test.js",
+      "sha256": "f1d9b1aca8e82e1dd18f6ec176fa6bbf6ee5a31e0962007fe5f196d09b09e2aa"
+    },
+    {
+      "path": "test/exit-lifecycle.test.js",
+      "sha256": "d55209c4cd72ddcd7db264b51b2d91436dfddd2096cd8bcdae0aabd7e32485d1"
+    },
+    {
+      "path": "test/exit-policy.test.js",
+      "sha256": "aad7038155cd343d4c65e6814c53101f4f2aff22668cacc424be72ed64988342"
+    },
+    {
+      "path": "test/gas-refill.test.js",
+      "sha256": "a743eb73f51a551f08aaa49b370114851aebd1bba3e7e4abb822206ccffd4c07"
+    },
+    {
+      "path": "test/ledger.test.js",
+      "sha256": "9eca8af8c7c505db411b1df9c5cdeb3bd93282d803aa18f8e820f856763ef2ee"
+    },
+    {
+      "path": "test/market-clock.test.js",
+      "sha256": "74648dc8a98bcbc14410c1b25783e4723cd1324359c673fb041bb00c0ede912d"
+    },
+    {
+      "path": "test/og-image.test.js",
+      "sha256": "3119a51336d7d8984af9779c403d0c08b901882ad25c23d171ddce41f8fc4343"
+    },
+    {
+      "path": "test/policy.test.js",
+      "sha256": "caf447d71e33cf75e3cbef81288c65a7cfa889365ed6fc03de2b12b3f457fecc"
+    },
+    {
+      "path": "test/portfolio-performance.test.js",
+      "sha256": "5fe9e3ee566c3fedffbef2e642d0eba21d44e391331ecfc93ba1a254628e1a31"
+    },
+    {
+      "path": "test/portfolio.test.js",
+      "sha256": "3048d5979fe1f16f3396cf95393805ae3e63b4aa11cce9ae926245742fd85982"
+    },
+    {
+      "path": "test/schedule.test.js",
+      "sha256": "ac74800fe6092803f8788a02d9275f63310d3a6ae0c8e3a2f01bc6be1542f76d"
+    },
+    {
+      "path": "test/social.test.js",
+      "sha256": "6881db9f940246ecd81b739d648bf7fb4fd2061c48bc2ca81957f6e262340876"
+    },
+    {
+      "path": "test/status.test.js",
+      "sha256": "2e0950c8c8312948321c4d57e6376c8df8e85736d5c95579bb095d665fdbec90"
+    },
+    {
+      "path": "test/v3.test.js",
+      "sha256": "a2bda821ed44452f4756b953984887446560db08f23c268959e0c1d6f16c3c3c"
+    }
+  ],
+  "adaptedFiles": [
+    ".dockerignore",
+    ".gitignore",
+    "README.md",
+    "package.json"
+  ],
+  "excluded": "Migration portal and migration-only scripts/tests, .env credentials, live ledgers, runtime dependency checkouts, node_modules, caches, build outputs, editor metadata, and marketing drafts.",
+  "verification": {
+    "legacyAgentTests": {
+      "passed": 81,
+      "failed": 0
+    },
+    "legacyContractUnitTests": {
+      "passed": 12,
+      "failed": 0
+    },
+    "currentSolanaDemoTests": {
+      "passed": 31,
+      "failed": 0
+    },
+    "dashboardBuild": "passed",
+    "configuredSecretMatches": 0,
+    "credentialPatternMatches": 0
+  }
+}
