@@ -1,113 +1,78 @@
-# Afterhours Agentic DAO
+# Afterhours
 
-Afterhours is a governed autonomous agent for tokenized markets on Solana.
-Token holders approve strategy mandates through Realms. Hosted Hermes reasons
-about those mandates and coordinates a modular MCP stack. Deterministic services
-find market opportunities, enforce risk limits, execute approved actions, and
-publish transaction receipts. Anyone can also converse
-with a read-only agent to understand strategies, decisions, and results.
+**The Agentic DAO for tokenized markets.**
+
+<img width="1360" height="768" alt="hf_20260925_135121_0c879339-b85a-467b-b68a-37631c0e5e24 (1)" src="https://github.com/user-attachments/assets/db02ef08-d6c3-43af-a1d0-4dab56375497" />
+
+
+Holders set the mandate. An agent executes it. Every action leaves a receipt.
+
+Afterhours is a governed autonomous agent on Solana. `$AFTERHOURS` holders approve strategy mandates through [Realms](https://v2.realms.today/dao/HLbzfAQP4b5oFBh8CeQ6DQSX1zr8kjjejxuywU2yYeCK). Hosted Hermes reasons about those mandates and coordinates a modular MCP stack. Deterministic services find market opportunities, enforce risk limits, execute approved actions, and publish transaction receipts. Anyone can talk to a read-only agent to understand strategies, decisions, and results.
+
+DAOs are transparent and slow. Trading agents are fast, usually owned by one operator, and unsafe to leave unsupervised. Afterhours combines both. Humans judge. The agent executes. It cannot vote.
+
+**Manifesto:** [afterhouragent.xyz/manifesto](https://afterhouragent.xyz/manifesto)
+
+## Live surfaces
+
+| What | Where |
+| --- | --- |
+| Product | https://afterhouragent.xyz |
+| Manifesto | https://afterhouragent.xyz/manifesto |
+| Migration ledger | https://migration.afterhouragent.xyz |
+| Realms DAO | https://v2.realms.today/dao/HLbzfAQP4b5oFBh8CeQ6DQSX1zr8kjjejxuywU2yYeCK |
+| Telegram | https://t.me/afterhoursdao |
+| X | https://x.com/AfterHoursDAO |
+| Founder | https://x.com/helwan_mande |
+
+Prototype receipts:
+
+- [NVDA sale](https://robinhoodchain.blockscout.com/tx/0x95656e3f28cc6e1a1754282f2c14d279e897738b1ab79a25217c5d325adce52c)
+
+Solana token: `A9FBHUz352WGYC3GUpPdQe1bKUCLojvLMsa5uxatuYwn`
+
+## How it works
+
+1. Holders use Realms to approve a treasury mandate: strategy, assets, budget, duration, venues, and risk limits.
+2. The agent checks that mandate against its skills and tells holders whether it can execute, what is missing, and the risk. It cannot vote.
+3. The DAO allocates a capped amount to an isolated strategy vault. The agent never receives the main treasury.
+4. The agent monitors approved markets and uses Pyth to test execution conditions.
+5. A Clawpump-powered agent executes through Solana venues such as Meteora.
+6. Principal and results return to the DAO. The interface ties proposal, decision, transaction, and outcome.
+
+100% of `$AFTERHOURS` creator fees go to the DAO treasury. Agent-generated profits return to that same treasury. Holders decide what happens next.
+
+## Planned stock strategy
 
 The planned stock strategy compares three Pyth markets:
 
-- `Equity.US.AAPL/USD` — the regular Apple equity feed.
-- `Crypto.AAPLX/USD` — the xStocks Apple feed.
-- `Crypto.AAPLON/USD` — the Ondo Apple feed.
+- `Equity.US.AAPL/USD`: the regular Apple equity feed
+- `Crypto.AAPLX/USD`: the xStocks Apple feed
+- `Crypto.AAPLON/USD`: the Ondo Apple feed
 
-The strategy measures the basis between the underlying equity and both tokenized
-representations, then validates every signal against executable Solana quotes,
-fees, liquidity, slippage, freshness, and the active DAO mandate.
+The strategy measures the basis between the underlying equity and both tokenized representations, then validates every signal against executable Solana quotes, fees, liquidity, slippage, freshness, and the active DAO mandate.
 
 ## Repository map
 
-- `apps/web` — governance, public read-only chat, strategy status, positions, and public receipts.
-- `services/agent` — Hosted Hermes configuration, prompt, and Afterhours skill.
-- `services/arbitrage-mcp` — deterministic Pyth market scanner and opportunity tools.
-- `services/execution-mcp` — policy-gated transaction simulation and execution.
-- `services/governance-mcp` — Realms reads and structured unsigned proposal drafts.
-- `services/governance-monitor` — proposal subscriptions, reconciliation, and Hermes wake events.
-- `packages/dao-client` — Realms proposal and mandate access.
-- `packages/strategy-engine` — shared strategy, risk, and opportunity types.
-- `packages/mcp-clients` — adapters for Pyth, Hummingbot, Meteora, and other MCPs.
-- `programs` — optional Solana programs when an onchain primitive is required.
-- `scripts` — operational scripts added only when they perform a real workflow.
-- `docs` — architecture, strategy, security, decisions, and hackathon scope.
-- `legacy/robinhood` — the original Robinhood Chain agent, dashboard, and Solidity contracts.
+- `apps/web`: governance, public read-only chat, strategy status, positions, and public receipts
+- `services/agent`: Hosted Hermes configuration, prompt, and Afterhours skill
+- `services/arbitrage-mcp`: deterministic Pyth market scanner and opportunity tools
+- `services/execution-mcp`: policy-gated transaction simulation and execution
+- `services/governance-mcp`: Realms reads and structured unsigned proposal drafts
+- `services/governance-monitor`: proposal subscriptions, reconciliation, and Hermes wake events
+- `packages/dao-client`: Realms proposal and mandate access
+- `packages/strategy-engine`: shared strategy, risk, and opportunity types
+- `packages/mcp-clients`: adapters for Pyth, Hummingbot, Meteora, and other MCPs
+- `programs`: optional Solana programs when an onchain primitive is required
+- `scripts`: operational scripts added only when they perform a real workflow
+- `docs`: architecture, strategy, security, decisions, and hackathon scope
+- `legacy`: the original agent, dashboard, and contracts from the first desk
 
-## Legacy Robinhood desk
+## First desk
 
-The complete RH agent, dashboard, Solidity contracts, and tests are included in
-[`legacy/robinhood`](legacy/robinhood/README.md). Source provenance and import scope
-are documented in [`IMPORT.md`](legacy/robinhood/IMPORT.md). This standalone npm
-package is separate from the Solana build. The deployed historical desk remains at
-<https://rh.afterhouragent.xyz/>.
+The first Afterhour ran as a standalone desk: creator fees funded the wallet, x402 paid for market data, and the agent traded tokenized names after the listed close. The complete agent, dashboard, contracts, and tests live in [`legacy`](legacy/README.md). This package is separate from the Solana build.
 
 ```sh
-npm ci --prefix legacy/robinhood
+npm ci --prefix legacy
 pnpm test:legacy
 npm run preview:legacy
-```
-
-## Current status
-
-The landing page, manifesto, and read-only market monitor are deployed at
-https://afterhouragent.xyz. The source repository is private at
-https://github.com/wanesurf/afterhours-agentic-dao. The deployed `/demo` page
-combines live finalized governance reads with six synthetic policy scenarios
-and downloadable decision records. See [the demo runbook](docs/demo-runbook.md)
-for the exact walkthrough and current evidence.
-
-The live trial profile uses five feeds confirmed accessible on 2026-09-25:
-BTC (1), WBTC (103), TSLA (1435), VOO (1472), and QQQ (1363).
-Only BTC/WBTC is compared; equities and ETFs provide observation-only context.
-This reference spread does not establish executable arbitrage or a Solana venue.
-The adapter validates feed IDs, freshness, market sessions, confidence, and
-publisher counts. Failed live requests are never replaced with sample prices.
-Without a key, prices are explicitly synthetic.
-
-`PYTH_MARKET_PROFILE=free-trial` is the runtime default. Set it to `apple` after
-obtaining Apple equity, xStocks, and Ondo access; those three feeds currently
-return `PYTH_FEED_NOT_ENTITLED`. The six policy rehearsal cases still use clearly
-labeled synthetic Apple inputs, independently of the live trial watchlist.
-
-The new governance adapter decodes the deployed governance account's proposal
-thresholds, voting settings, native treasury balance, and actual proposal states.
-Reads validate account ownership and Realm/mint bindings at finalized commitment.
-They do not authorize execution. The current proposal is a completed council
-metadata proposal, not an approved trading mandate.
-
-Execution preflight and proposal review functions exist, but live venue quoting,
-a funded strategy vault, transaction simulation/signing, and settlement do not.
-Public chat uses anonymous sessions and a server-side, tool-free Hermes adapter;
-a verified externally reachable Hermes API is still needed for live replies.
-
-```sh
-pnpm install --frozen-lockfile
-pnpm test
-WEB_PORT=8786 WEB_ORIGIN=http://localhost:8786 node --env-file=.env dist/apps/web/src/server.js
-# In another terminal:
-pnpm demo:check http://localhost:8786
-```
-
-Open `/demo` for the governed-desk rehearsal and `/markets` for the price monitor.
-The demo makes no transactions. Policy test records are explicitly synthetic;
-their hashes are not onchain transaction signatures. The session store supports
-one web process. The governed-desk release and five live trial feeds were verified in production on
-2026-09-25 (Railway deployment `969ba1c7-bf0b-4d36-8804-ebd50e77ff75`).
-
-## Design principles
-
-1. The DAO governs policy; the agent executes within it.
-2. Hermes never receives an unrestricted treasury signing tool.
-3. Pyth supplies independent market data; venue quotes determine executability.
-4. Every state-changing action passes through the policy gateway.
-5. Every decision and transaction produces an auditable receipt.
-6. MCP capabilities are modular and can be added through DAO-approved upgrades.
-7. Public conversation is isolated from execution and governance authority.
-8. Strategies improve through measured performance and DAO-approved upgrades.
-
-See [docs/architecture.md](docs/architecture.md) and
-[docs/implementation-status.md](docs/implementation-status.md),
-[docs/pyth-arbitrage-strategy.md](docs/pyth-arbitrage-strategy.md), and
-[docs/holder-agent-chat.md](docs/holder-agent-chat.md),
-[docs/mcp-stack.md](docs/mcp-stack.md), and
-[docs/proposal-lifecycle.md](docs/proposal-lifecycle.md).
