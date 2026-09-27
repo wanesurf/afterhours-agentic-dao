@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e5e4dc">
+  <title>Your Afterhours portrait</title>
+  <meta name="description" content="Bring your picture into the assembly. Add the Afterhours arch and agent to your profile picture, adjust your crop, and save it.">
+  <link rel="canonical" href="https://afterhouragent.xyz/pfp">
+  <link rel="preload" href="/assets/marcellus.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/navigation.css"><link rel="stylesheet" href="/pfp.css">
+  <script type="module" src="/pfp.js"></script>
+</head>
+<body class="pfp-page">
+<a href="#portrait" class="skip-link">Skip to portrait editor</a>
+<div class="page-shell">
+  <header class="masthead"><a href="/" class="wordmark" aria-label="Afterhours home">Afterhours<span class="wordmark-dot" aria-hidden="true">.</span></a><nav aria-label="Main navigation"><a href="/#idea">The vision</a><a href="/manifesto">Manifesto</a><a href="/pfp" aria-current="page">Your portrait</a></nav></header>
+  <main id="portrait">
+    <div class="portrait-heading"><h1>A place in the assembly.</h1><p>Your picture. Our arch. Afterhour by your side.</p></div>
+    <div class="portrait-workspace">
+      <section class="portrait-preview" aria-label="Portrait preview">
+        <div id="portrait-stage" class="portrait-stage" tabindex="0" role="group" aria-label="Picture editor. Drag to reposition. Use arrow keys to move, plus and minus to zoom." aria-describedby="preview-help">
+          <div id="cropper-host"></div>
+          <div id="empty-portrait" class="empty-portrait"><span>Your picture<br>belongs here.</span></div>
+          <img id="portrait-frame" class="portrait-frame" src="/assets/afterhours-pfp-frame-e8791eccb80e.png" alt="Roman stone arch with Afterhour in the foreground" width="1024" height="1024" draggable="false" fetchpriority="high">
+        </div>
+        <div class="preview-caption"><p id="preview-help">Add a picture to begin.</p><span>1024 × 1024 PNG</span></div>
+      </section>
+      <section class="portrait-controls" aria-labelledby="controls-title">
+        <h2 id="controls-title">Make it yours.</h2>
+        <p class="controls-intro">Start with your X profile picture or one from your device.</p>
+        <form id="x-form" class="x-form">
+          <label for="x-handle">X handle or profile link</label>
+          <div class="handle-row"><input id="x-handle" type="text" placeholder="@yourhandle" maxlength="150" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="x-help"><button id="fetch-avatar" class="button primary" type="submit">Find picture</button></div>
+          <p id="x-help" class="field-help">No sign-in needed. <a href="https://unavatar.io" target="_blank" rel="noopener noreferrer">Avatars provided by Unavatar</a>.</p>
+        </form>
+        <div class="upload-separator"><span>or</span></div>
+        <label class="upload-button" for="upload-picture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"/></svg>Upload a picture<input id="upload-picture" type="file" accept="image/jpeg,image/png,image/webp"></label>
+        <p class="field-help upload-help">JPG, PNG or WebP, up to 10 MB. Uploads stay in your browser.</p>
+        <p id="pfp-status" class="pfp-status" role="status" aria-live="polite" hidden></p>
+        <fieldset id="adjustments" disabled>
+          <legend>Find your framing.</legend>
+          <div class="zoom-heading"><label for="zoom">Zoom</label><output id="zoom-value" for="zoom">100%</output></div>
+          <div class="zoom-row"><button id="zoom-out" type="button" class="icon-button" aria-label="Zoom out">−</button><input id="zoom" type="range" min="40" max="400" step="1" value="100"><button id="zoom-in" type="button" class="icon-button" aria-label="Zoom in">+</button></div>
+          <div class="position-row"><div class="nudge-controls" aria-label="Move picture"><button type="button" class="icon-button" data-move="-1,0" aria-label="Move picture left">←</button><button type="button" class="icon-button" data-move="0,-1" aria-label="Move picture up">↑</button><button type="button" class="icon-button" data-move="0,1" aria-label="Move picture down">↓</button><button type="button" class="icon-button" data-move="1,0" aria-label="Move picture right">→</button></div><button id="reset-picture" type="button" class="reset-button">Reset position</button></div>
+        </fieldset>
+        <div class="profile-check"><div class="avatar-previews"><canvas id="preview-large" width="192" height="192" aria-label="Circular profile preview"></canvas><canvas id="preview-small" width="80" height="80" aria-label="Small circular profile preview"></canvas></div><p>Made for your profile.<br><span>Check how it looks at a glance.</span></p></div>
+        <button id="save-pfp" type="button" class="button primary save-button" disabled><span id="save-label">Save your portrait</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v13m-5-5 5 5 5-5M4 16v5h16v-5"/></svg></button>
+        <p class="save-note">Download your PNG, then set it as your profile picture on X.</p>
+      </section>
+    </div>
+  </main>
+  <footer class="footer"><a href="/" class="wordmark">Afterhours<span class="wordmark-dot" aria-hidden="true">.</span></a><p>Held in common. Governed together.</p><a class="text-link" href="/manifesto">Read the manifesto</a></footer>
+</div>
+<noscript><div class="noscript">Enable JavaScript to edit and save your portrait.</div></noscript>
+</body>
+</html>

@@ -1,3 +1,4 @@
+import { createPfpRoutes } from "./pfp-routes.js";
 import { createHermesRuntime } from "./hermes-runtime.js";
 import { createChatRoutes, type ChatOptions } from "./chat-routes.js";
 import { readFile } from "node:fs/promises";
@@ -48,6 +49,10 @@ export function sampleMarketState(nowMs = Date.now(), profile: MarketProfile = A
 }
 
 const STATIC_FILES = {
+  "/pfp": { file: "pfp.html", contentType: "text/html; charset=utf-8" },
+  "/pfp/": { file: "pfp.html", contentType: "text/html; charset=utf-8" },
+  "/pfp.css": { file: "pfp.css", contentType: "text/css; charset=utf-8" },
+  "/pfp.js": { file: "pfp.js", contentType: "text/javascript; charset=utf-8" },
   "/demo": { file: "demo.html", contentType: "text/html; charset=utf-8" },
   "/demo.css": { file: "demo.css", contentType: "text/css; charset=utf-8" },
   "/demo.js": { file: "demo.js", contentType: "text/javascript; charset=utf-8" },
@@ -63,15 +68,17 @@ const STATIC_FILES = {
   "/markets.js": { file: "markets.js", contentType: "text/javascript; charset=utf-8" },
 } as const;
 
-export function createWebServer(provider: WebMarketProvider, mode: DataMode, chatOptions?: ChatOptions): Server {
+export function createWebServer(provider: WebMarketProvider, mode: DataMode, chatOptions?: ChatOptions, pfpOptions?: Parameters<typeof createPfpRoutes>[0]): Server {
+  const pfpRoutes = createPfpRoutes(pfpOptions);
   const governanceRead = cachedReader(() => readGovernanceSnapshot(), 15_000);
   const chatRoutes = chatOptions ? createChatRoutes(chatOptions) : undefined;
   return createServer(async (req, res) => {
     const pathname = new URL(req.url || "/", "http://localhost").pathname;
     res.setHeader("x-content-type-options", "nosniff");
-    res.setHeader("content-security-policy", "default-src 'self'; connect-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; object-src 'none'");
+    res.setHeader("content-security-policy", "default-src 'self'; connect-src 'self'; img-src 'self' data: blob:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; object-src 'none'");
     res.setHeader("referrer-policy", "no-referrer");
     res.setHeader("x-frame-options", "DENY");
+    if (await pfpRoutes(req, res, pathname)) return;
     if (chatRoutes && await chatRoutes(req, res, pathname)) return;
     if (req.method !== "GET") {
       res.writeHead(405).end();
